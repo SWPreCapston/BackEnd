@@ -36,7 +36,12 @@ public class SecurityConfig {
 
 
         http
-                .csrf((auth) -> auth.disable()); // csrf 설정 작업
+                .logout((auth) -> auth.logoutUrl("/logout")
+                        .logoutSuccessUrl("/")); // 로그아웃
+
+
+//        http
+//                .csrf((auth) -> auth.disable()); // csrf 설정 작업
 
 
         http
