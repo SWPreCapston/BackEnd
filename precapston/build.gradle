@@ -1,4 +1,5 @@
 plugins {
+	id 'application'
 	id 'java'
 	id 'org.springframework.boot' version '3.3.4'
 	id 'io.spring.dependency-management' version '1.1.6'
@@ -22,6 +23,9 @@ configurations {
 repositories {
 	mavenCentral()
 }
+application {
+	mainClass = 'com.precapston.precapston.PrecapstonApplication' // 메인 클래스 경로
+}
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -30,8 +34,11 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	implementation 'com.twelvemonkeys.imageio:imageio-webp:3.8.0' // 최신 버전으로 변경 가능
+	implementation 'com.twelvemonkeys.imageio:imageio-core:3.8.0'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
