@@ -1,5 +1,6 @@
-package com.precapston.precapston;
+package com.precapston.precapston.Image_resize;
 
+import com.precapston.precapston.PrecapstonApplication;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -30,7 +31,7 @@ public class Imageresize implements CommandLineRunner {
     }
 
     public static void imageResize() throws IOException {
-        File file = new File("C:\\Users\\wndhk\\aitest\\test1.png");
+        File file = new File("C:\\Users\\wndhk\\aitest\\test.webp");
 
         // InputStream 생성 및 닫기
         try (InputStream inputStream = new FileInputStream(file)) {
@@ -47,7 +48,7 @@ public class Imageresize implements CommandLineRunner {
 
             BufferedImage resizedImage = resize(inputStream, width, height);
 
-            ImageIO.write(resizedImage, "jpg", new File("C:\\Users\\wndhk\\aitest\\1234567.jpg"));
+            ImageIO.write(resizedImage, "jpg", new File("C:\\Users\\wndhk\\aitest\\resize1.jpg"));
         } catch (IOException e) {
             e.printStackTrace(); // 에러 로그 출력
         }
