@@ -36,6 +36,8 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	implementation 'com.twelvemonkeys.imageio:imageio-webp:3.8.0' // 최신 버전으로 변경 가능
 	implementation 'com.twelvemonkeys.imageio:imageio-core:3.8.0'
+	implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+	implementation 'com.google.code.gson:gson:2.8.9'
 }
 
 tasks.named('test') {
