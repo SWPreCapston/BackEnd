@@ -23,7 +23,7 @@ public class PrecapstonApplication {
 	private static final String API_KEY = "b3825b92dc1436f68de38331442bcab1ecc9ef2747c68271611045bdfa501430";
 	private static final String PPURIO_ACCOUNT = "woojj1254577";
 	private static final String FROM = "01072548535";
-	private static final String FILE_PATH = "D:/24-2/SWFreeCapston_8/Back/precapston/src/main/resources/images/testimg.jpg";
+	private static final String FILE_PATH = "D:/24-2/SWFreeCapston_8/Back/precapston/src/main/resources/images/cat.jpg";
 	private static final String URI = "https://message.ppurio.com";
 
 	public void requestSend() {
@@ -205,31 +205,31 @@ public class PrecapstonApplication {
 		params.put("account", PPURIO_ACCOUNT);
 		params.put("messageType", "MMS");
 		params.put("from", FROM);
-		params.put("content", "프캡 실험문자입니다아아아앙");
+		params.put("content", "지피티가 만든 사진");
 		params.put("duplicateFlag", "Y");
 		params.put("rejectType", "AD"); // 광고성 문자 수신거부 설정, 비활성화할 경우 해당 파라미터 제외
-		params.put("targetCount", 1);
+		params.put("targetCount", 5);
 		params.put("targets", List.of(
 				Map.of("to", "01072548535",
 						"name", "장우진",
 						"changeWord", Map.of(
+								"var1", "ppurio api world")),
+				Map.of("to", "01072317472",
+						"name", "최승재",
+						"changeWord", Map.of(
+								"var1", "ppurio api world")),
+				Map.of("to", "01083808023",
+						"name", "홍해담",
+						"changeWord", Map.of(
+								"var1", "ppurio api world")),
+				Map.of("to", "01038296128",
+						"name", "김정훈",
+						"changeWord", Map.of(
+								"var1", "ppurio api world")),
+				Map.of("to", "01092046939",
+						"name", "손주완",
+						"changeWord", Map.of(
 								"var1", "ppurio api world"))
-				//Map.of("to", "01072317472",
-				//		"name", "최승재",
-				//		"changeWord", Map.of(
-				//				"var1", "ppurio api world")),
-				//Map.of("to", "01083808023",
-				//		"name", "홍해담",
-				//		"changeWord", Map.of(
-				//				"var1", "ppurio api world")),
-				//Map.of("to", "01038296128",
-				//		"name", "김정훈",
-				//		"changeWord", Map.of(
-				//				"var1", "ppurio api world")),
-				//Map.of("to", "01092046939",
-				//		"name", "손주완",
-				//		"changeWord", Map.of(
-				//				"var1", "ppurio api world"))
 				)
 		);
 		params.put("files", List.of(
@@ -277,12 +277,12 @@ public class PrecapstonApplication {
 	public static void main(String[] args) {
 
 		SpringApplication.run(PrecapstonApplication.class, args);
-		//지우면 돈 나감 ~~~~ PrecapstonApplication pre=new PrecapstonApplication();
-		//지우면 돈 나감 ~~~~ try {
-		//지우면 돈 나감 ~~~~ 	pre.requestSend();
-		//지우면 돈 나감 ~~~~ } catch (Exception e) {
-		//지우면 돈 나감 ~~~~ 	System.err.println("문자 발송 요청 중 오류 발생: "+e.getMessage());
-		//지우면 돈 나감 ~~~~ }
+		PrecapstonApplication pre=new PrecapstonApplication();
+		try {
+			pre.requestSend();
+		} catch (Exception e) {
+			System.err.println("문자 발송 요청 중 오류 발생: "+e.getMessage());
+		}
 	}
 }
 
