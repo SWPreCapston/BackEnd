@@ -1,16 +1,19 @@
 package com.precapston.precapston.downlaod_resize;
 
+import com.precapston.precapston.PrecapstonApplication;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import javax.imageio.ImageIO;
+import javax.imageio.IIOImage;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageOutputStream;
 
 @SpringBootApplication
 public class download_resize implements CommandLineRunner {
@@ -52,9 +55,7 @@ public class download_resize implements CommandLineRunner {
     }
 
     public static void imageResize(File file) throws IOException {
-        // InputStream 생성 및 닫기
         try (InputStream inputStream = new FileInputStream(file)) {
-            // 이미지 파일 경로 출력
             System.out.println("이미지 파일 경로: " + file.getAbsolutePath());
 
             // 이미지 정보 출력
@@ -67,15 +68,29 @@ public class download_resize implements CommandLineRunner {
 
             BufferedImage resizedImage = resize(inputStream, width, height);
 
-            // 리사이즈된 이미지의 파일명 생성
-            String originalFileName = file.getName(); // 원본 파일명 가져오기
-            String newFileName = originalFileName.substring(0, originalFileName.lastIndexOf('.')) + ".jpg"; // 확장자를 jpg로 변경
-            String outputPath = "C:\\Users\\wndhk\\aitest\\" + newFileName; // 저장 경로
+            String originalFileName = file.getName();
+            String newFileName = originalFileName.substring(0, originalFileName.lastIndexOf('.')) + ".jpg";
+            String outputPath = "C:\\Users\\wndhk\\aitest\\" + newFileName;
 
-            ImageIO.write(resizedImage, "jpg", new File(outputPath));
-            System.out.println("이미지 리사이즈 완료 및 저장됨: " + outputPath);
+            // JPEG 압축을 적용하여 이미지 저장
+            try (FileOutputStream fos = new FileOutputStream(outputPath);
+                 ImageOutputStream ios = ImageIO.createImageOutputStream(fos)) {
+
+                ImageWriter writer = ImageIO.getImageWritersByFormatName("jpg").next();
+                writer.setOutput(ios);
+
+                ImageWriteParam param = writer.getDefaultWriteParam();
+                if (param.canWriteCompressed()) {
+                    param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+                    param.setCompressionQuality(0.8f); // 압축 품질 설정 (0.0 ~ 1.0, 값이 낮을수록 용량 감소)
+                }
+
+                writer.write(null, new IIOImage(resizedImage, null, null), param);
+                writer.dispose();
+                System.out.println("이미지 리사이즈 및 압축 완료: " + outputPath);
+            }
         } catch (IOException e) {
-            e.printStackTrace(); // 에러 로그 출력
+            e.printStackTrace();
         }
     }
 
