@@ -31,7 +31,7 @@ public class Imageresize implements CommandLineRunner {
     }
 
     public static void imageResize() throws IOException {
-        File file = new File("C:\\Users\\wndhk\\aitest\\test.webp");
+        File file = new File("C:\\Users\\wndhk\\aitest\\test.jpg");
 
         // InputStream 생성 및 닫기
         try (InputStream inputStream = new FileInputStream(file)) {
