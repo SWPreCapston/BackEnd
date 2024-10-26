@@ -22,6 +22,7 @@ public class PrecapstonApplication {
 
 	public static void main(String[] args) {
 
-	}
+
+}
 }
 
