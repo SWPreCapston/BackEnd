@@ -10,5 +10,5 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
     UserEntity findByUsername(String username);
 
     // username과 userPassword를 검사하는 메서드
-    boolean existsByUsernameAndUserPassword(String username, String userPassword);
+    boolean existsByUsernameAndPassword(String username, String password);
 }

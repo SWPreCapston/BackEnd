@@ -4,6 +4,8 @@ import com.precapston.precapston.PpurioAPI;
 import okhttp3.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import org.springframework.stereotype.Service;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -16,6 +18,7 @@ import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageOutputStream;
 
+@Service
 public class ImageService {
     private static final String API_KEY = ""; // 여기에 API 키를 입력하세요
     private static final String API_URL = "https://api.openai.com/v1/images/generations";

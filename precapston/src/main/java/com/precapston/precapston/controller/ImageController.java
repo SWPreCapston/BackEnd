@@ -30,10 +30,12 @@ import com.precapston.precapston.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api") // 모든 API에 /api 경로를 추가
 public class ImageController {
     @Autowired
     private ImageService imageService;
