@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="precapston">
-  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.53">
+  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.48">
     <root id="1">
       <DefaultCasing>lower/lower</DefaultCasing>
       <DefaultEngine>InnoDB</DefaultEngine>
@@ -1076,18 +1076,18 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </table>
     <column id="309" parent="300" name="id">
       <AutoIncrement>1</AutoIncrement>
+      <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StoredType>bigint|0s</StoredType>
     </column>
     <column id="310" parent="300" name="name">
+      <DasType>varchar(10)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StoredType>varchar(10)|0s</StoredType>
     </column>
     <column id="311" parent="300" name="content">
+      <DasType>varchar(5000)|0s</DasType>
       <Position>3</Position>
-      <StoredType>varchar(5000)|0s</StoredType>
     </column>
     <index id="312" parent="300" name="PRIMARY">
       <ColNames>id</ColNames>
@@ -1101,25 +1101,25 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </key>
     <column id="314" parent="301" name="id">
       <AutoIncrement>1</AutoIncrement>
+      <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StoredType>bigint|0s</StoredType>
     </column>
     <column id="315" parent="301" name="url">
+      <DasType>varchar(100)|0s</DasType>
       <Position>2</Position>
-      <StoredType>varchar(100)|0s</StoredType>
     </column>
     <column id="316" parent="301" name="created_at">
+      <DasType>datetime(6)|0s</DasType>
       <Position>3</Position>
-      <StoredType>datetime(6)|0s</StoredType>
     </column>
     <column id="317" parent="301" name="updated_at">
+      <DasType>datetime(6)|0s</DasType>
       <Position>4</Position>
-      <StoredType>datetime(6)|0s</StoredType>
     </column>
     <column id="318" parent="301" name="member_id">
+      <DasType>bigint|0s</DasType>
       <Position>5</Position>
-      <StoredType>bigint|0s</StoredType>
     </column>
     <foreign-key id="319" parent="301" name="gif_ibfk_1">
       <ColNames>member_id</ColNames>
@@ -1142,25 +1142,25 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </key>
     <column id="323" parent="302" name="id">
       <AutoIncrement>1</AutoIncrement>
+      <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StoredType>bigint|0s</StoredType>
     </column>
     <column id="324" parent="302" name="url">
+      <DasType>varchar(100)|0s</DasType>
       <Position>2</Position>
-      <StoredType>varchar(100)|0s</StoredType>
     </column>
     <column id="325" parent="302" name="created_at">
+      <DasType>datetime(6)|0s</DasType>
       <Position>3</Position>
-      <StoredType>datetime(6)|0s</StoredType>
     </column>
     <column id="326" parent="302" name="updated_at">
+      <DasType>datetime(6)|0s</DasType>
       <Position>4</Position>
-      <StoredType>datetime(6)|0s</StoredType>
     </column>
     <column id="327" parent="302" name="member_id">
+      <DasType>bigint|0s</DasType>
       <Position>5</Position>
-      <StoredType>bigint|0s</StoredType>
     </column>
     <foreign-key id="328" parent="302" name="image_ibfk_1">
       <ColNames>member_id</ColNames>
@@ -1183,55 +1183,55 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </key>
     <column id="332" parent="303" name="id">
       <AutoIncrement>1</AutoIncrement>
+      <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StoredType>bigint|0s</StoredType>
     </column>
     <column id="333" parent="303" name="name">
+      <DasType>varchar(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StoredType>varchar(20)|0s</StoredType>
     </column>
     <column id="334" parent="303" name="birth">
+      <DasType>varchar(20)|0s</DasType>
       <Position>3</Position>
-      <StoredType>varchar(20)|0s</StoredType>
     </column>
     <column id="335" parent="303" name="phone_num">
+      <DasType>varchar(15)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
-      <StoredType>varchar(15)|0s</StoredType>
     </column>
     <column id="336" parent="303" name="email">
+      <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
-      <StoredType>varchar(50)|0s</StoredType>
     </column>
     <column id="337" parent="303" name="login_id">
+      <DasType>varchar(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
-      <StoredType>varchar(20)|0s</StoredType>
     </column>
     <column id="338" parent="303" name="login_pw">
+      <DasType>varchar(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
-      <StoredType>varchar(20)|0s</StoredType>
     </column>
     <column id="339" parent="303" name="status">
+      <DasType>varchar(10)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
-      <StoredType>varchar(10)|0s</StoredType>
     </column>
     <column id="340" parent="303" name="inactive_date">
+      <DasType>datetime(6)|0s</DasType>
       <Position>9</Position>
-      <StoredType>datetime(6)|0s</StoredType>
     </column>
     <column id="341" parent="303" name="created_at">
+      <DasType>datetime(6)|0s</DasType>
       <Position>10</Position>
-      <StoredType>datetime(6)|0s</StoredType>
     </column>
     <column id="342" parent="303" name="updated_at">
+      <DasType>datetime(6)|0s</DasType>
       <Position>11</Position>
-      <StoredType>datetime(6)|0s</StoredType>
     </column>
     <index id="343" parent="303" name="PRIMARY">
       <ColNames>id</ColNames>
@@ -1253,33 +1253,33 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </key>
     <column id="347" parent="304" name="id">
       <AutoIncrement>1</AutoIncrement>
+      <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StoredType>bigint|0s</StoredType>
     </column>
     <column id="348" parent="304" name="type">
+      <DasType>varchar(10)|0s</DasType>
       <Position>2</Position>
-      <StoredType>varchar(10)|0s</StoredType>
     </column>
     <column id="349" parent="304" name="title">
+      <DasType>varchar(20)|0s</DasType>
       <Position>3</Position>
-      <StoredType>varchar(20)|0s</StoredType>
     </column>
     <column id="350" parent="304" name="body">
+      <DasType>varchar(50)|0s</DasType>
       <Position>4</Position>
-      <StoredType>varchar(50)|0s</StoredType>
     </column>
     <column id="351" parent="304" name="created_at">
+      <DasType>datetime(6)|0s</DasType>
       <Position>5</Position>
-      <StoredType>datetime(6)|0s</StoredType>
     </column>
     <column id="352" parent="304" name="updated_at">
+      <DasType>datetime(6)|0s</DasType>
       <Position>6</Position>
-      <StoredType>datetime(6)|0s</StoredType>
     </column>
     <column id="353" parent="304" name="member_id">
+      <DasType>bigint|0s</DasType>
       <Position>7</Position>
-      <StoredType>bigint|0s</StoredType>
     </column>
     <foreign-key id="354" parent="304" name="message_ibfk_1">
       <ColNames>member_id</ColNames>
@@ -1302,17 +1302,17 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </key>
     <column id="358" parent="305" name="id">
       <AutoIncrement>1</AutoIncrement>
+      <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StoredType>bigint|0s</StoredType>
     </column>
     <column id="359" parent="305" name="name">
+      <DasType>varchar(20)|0s</DasType>
       <Position>2</Position>
-      <StoredType>varchar(20)|0s</StoredType>
     </column>
     <column id="360" parent="305" name="phone_num">
+      <DasType>varchar(15)|0s</DasType>
       <Position>3</Position>
-      <StoredType>varchar(15)|0s</StoredType>
     </column>
     <index id="361" parent="305" name="PRIMARY">
       <ColNames>id</ColNames>
@@ -1326,37 +1326,37 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </key>
     <column id="363" parent="306" name="id">
       <AutoIncrement>1</AutoIncrement>
+      <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StoredType>bigint|0s</StoredType>
     </column>
     <column id="364" parent="306" name="type">
+      <DasType>varchar(10)|0s</DasType>
       <Position>2</Position>
-      <StoredType>varchar(10)|0s</StoredType>
     </column>
     <column id="365" parent="306" name="count">
+      <DasType>int|0s</DasType>
       <Position>3</Position>
-      <StoredType>int|0s</StoredType>
     </column>
     <column id="366" parent="306" name="date">
+      <DasType>datetime(6)|0s</DasType>
       <Position>4</Position>
-      <StoredType>datetime(6)|0s</StoredType>
     </column>
     <column id="367" parent="306" name="created_at">
+      <DasType>datetime(6)|0s</DasType>
       <Position>5</Position>
-      <StoredType>datetime(6)|0s</StoredType>
     </column>
     <column id="368" parent="306" name="updated_at">
+      <DasType>datetime(6)|0s</DasType>
       <Position>6</Position>
-      <StoredType>datetime(6)|0s</StoredType>
     </column>
     <column id="369" parent="306" name="member_id">
+      <DasType>bigint|0s</DasType>
       <Position>7</Position>
-      <StoredType>bigint|0s</StoredType>
     </column>
     <column id="370" parent="306" name="message_id">
+      <DasType>bigint|0s</DasType>
       <Position>8</Position>
-      <StoredType>bigint|0s</StoredType>
     </column>
     <foreign-key id="371" parent="306" name="send_ibfk_1">
       <ColNames>member_id</ColNames>
@@ -1388,25 +1388,25 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </key>
     <column id="377" parent="307" name="id">
       <AutoIncrement>1</AutoIncrement>
+      <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StoredType>bigint|0s</StoredType>
     </column>
     <column id="378" parent="307" name="message_id">
+      <DasType>bigint|0s</DasType>
       <Position>2</Position>
-      <StoredType>bigint|0s</StoredType>
     </column>
     <column id="379" parent="307" name="image_id">
+      <DasType>bigint|0s</DasType>
       <Position>3</Position>
-      <StoredType>bigint|0s</StoredType>
     </column>
     <column id="380" parent="307" name="created_at">
+      <DasType>datetime(6)|0s</DasType>
       <Position>4</Position>
-      <StoredType>datetime(6)|0s</StoredType>
     </column>
     <column id="381" parent="307" name="updated_at">
+      <DasType>datetime(6)|0s</DasType>
       <Position>5</Position>
-      <StoredType>datetime(6)|0s</StoredType>
     </column>
     <foreign-key id="382" parent="307" name="use_image_ibfk_1">
       <ColNames>message_id</ColNames>
@@ -1438,30 +1438,30 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </key>
     <column id="388" parent="308" name="id">
       <AutoIncrement>1</AutoIncrement>
+      <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StoredType>bigint|0s</StoredType>
     </column>
     <column id="389" parent="308" name="list_num">
+      <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StoredType>int|0s</StoredType>
     </column>
     <column id="390" parent="308" name="created_at">
+      <DasType>datetime(6)|0s</DasType>
       <Position>3</Position>
-      <StoredType>datetime(6)|0s</StoredType>
     </column>
     <column id="391" parent="308" name="updated_at">
+      <DasType>datetime(6)|0s</DasType>
       <Position>4</Position>
-      <StoredType>datetime(6)|0s</StoredType>
     </column>
     <column id="392" parent="308" name="member_id">
+      <DasType>bigint|0s</DasType>
       <Position>5</Position>
-      <StoredType>bigint|0s</StoredType>
     </column>
     <column id="393" parent="308" name="recipient_id">
+      <DasType>bigint|0s</DasType>
       <Position>6</Position>
-      <StoredType>bigint|0s</StoredType>
     </column>
     <foreign-key id="394" parent="308" name="user_recipient_ibfk_1">
       <ColNames>member_id</ColNames>

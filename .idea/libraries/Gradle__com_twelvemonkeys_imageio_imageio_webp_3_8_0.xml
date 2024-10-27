@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.twelvemonkeys.imageio:imageio-webp:3.8.0" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="com.twelvemonkeys.imageio" artifactId="imageio-webp" version="3.8.0" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.twelvemonkeys.imageio/imageio-webp/3.8.0/21f7c49079825fc351df302f992832eac3181643/imageio-webp-3.8.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
