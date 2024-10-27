@@ -22,7 +22,7 @@ public class ImageService {
 
     public static List<String> Service(String message) {
         String prompt = message; // 생성할 이미지에 대한 프롬프트
-        String outputPath = "C:\\Users\\wndhk\\aitest\\";
+        String outputPath = "C:\\Users\\goeka\\Desktop\\";
         List<String> imageUrls = null;
         int width = 740;
         int height = 960;
