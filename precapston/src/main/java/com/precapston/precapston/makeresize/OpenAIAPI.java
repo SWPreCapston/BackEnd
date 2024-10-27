@@ -27,7 +27,7 @@ public class OpenAIAPI {
         int height = 960;
         try {
             // 이미지 생성 및 리사이즈
-            for (int i = 0; i < 1; i++) {
+            for (int i = 0; i < 4; i++) { // 4개 이미지 생성
                 String imageUrl = generateImage(prompt);
                 File savedImage = saveImage(imageUrl, outputPath + "generated_image_" + (i + 1) + ".jpg");
                 processAndResizeImage(savedImage, outputPath, width, height);
@@ -36,11 +36,12 @@ public class OpenAIAPI {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        PpurioAPI ppurio=new PpurioAPI();
+
+        PpurioAPI ppurio = new PpurioAPI();
         try {
             ppurio.requestSend();
         } catch (Exception e) {
-            System.err.println("문자 발송 요청 중 오류 발생: "+e.getMessage());
+            System.err.println("문자 발송 요청 중 오류 발생: " + e.getMessage());
         }
     }
 
