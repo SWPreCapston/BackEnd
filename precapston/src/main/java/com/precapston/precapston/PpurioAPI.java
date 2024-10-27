@@ -17,10 +17,10 @@ import java.util.Map;
 
 public class PpurioAPI {
     private static final Integer TIME_OUT = 5000;
-    private static final String API_KEY = "b3825b92dc1436f68de38331442bcab1ecc9ef2747c68271611045bdfa501430";
+    private static final String API_KEY = "";
     private static final String PPURIO_ACCOUNT = "woojj1254577";	//santoragi32
     private static final String FROM = "01072548535";
-    private static final String FILE_PATH = "D:/24-2/SWFreeCapston_8/Back/precapston/src/main/resources/images/cat.jpg";
+    private static final String FILE_PATH = "C:\\Users\\wndhk\\aitest\\generated_image_1.jpg";
     private static final String URI = "https://message.ppurio.com";
 
     public void requestSend() {
