@@ -19,7 +19,7 @@ public class LoginService {
 
 
     public void loginProcess(LoginDTO loginDTO) {
-            boolean login_check = userRepository.existsByUsernameAndUserPassword(loginDTO.getId(),loginDTO.getPassword());
+            boolean login_check = userRepository.existsByUsernameAndUserPassword(loginDTO.getUsername(),loginDTO.getPassword());
 
             if(login_check){
 
