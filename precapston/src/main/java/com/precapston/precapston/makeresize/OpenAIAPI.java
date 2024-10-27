@@ -22,26 +22,34 @@ public class OpenAIAPI {
 
     public static void main(String[] args) {
         String prompt = "고양이"; // 생성할 이미지에 대한 프롬프트
-        String outputPath = "C:\\Users\\wndhk\\aitest\\";
+        String outputPath = "/Users/junghun/Desktop/"; // 이미지 저장 경로
         int width = 740;
         int height = 960;
+        BufferedImage[] generatedImages = new BufferedImage[4]; // 이미지를 저장할 배열
+
         try {
             // 이미지 생성 및 리사이즈
-            for (int i = 0; i < 1; i++) {
+            for (int i = 0; i < 4; i++) {
                 String imageUrl = generateImage(prompt);
-                File savedImage = saveImage(imageUrl, outputPath + "generated_image_" + (i + 1) + ".jpg");
-                processAndResizeImage(savedImage, outputPath, width, height);
-                System.out.println("Image saved as: " + savedImage.getName());
+                generatedImages[i] = processImage(imageUrl, width, height);
+                System.out.println("이미지 생성 완료: " + (i + 1));
             }
+
+            // 생성된 이미지를 파일로 저장
+            for (int i = 0; i < generatedImages.length; i++) {
+                saveImage(generatedImages[i], outputPath + "generated_image_" + (i + 1) + ".jpg");
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-        PpurioAPI ppurio=new PpurioAPI();
-        try {
-            ppurio.requestSend();
-        } catch (Exception e) {
-            System.err.println("문자 발송 요청 중 오류 발생: "+e.getMessage());
-        }
+
+//        PpurioAPI ppurio = new PpurioAPI();
+//        try {
+//            ppurio.requestSend();
+//        } catch (Exception e) {
+//            System.err.println("문자 발송 요청 중 오류 발생: " + e.getMessage());
+//        }
     }
 
     public static OkHttpClient createHttpClient() {
@@ -79,71 +87,59 @@ public class OpenAIAPI {
         return responseJson.getAsJsonArray("data").get(0).getAsJsonObject().get("url").getAsString();
     }
 
-    public static File saveImage(String imageUrl, String filePath) throws IOException {
-        File file = new File(filePath);
-        try (InputStream in = new URL(imageUrl).openStream();
-             FileOutputStream out = new FileOutputStream(file)) {
-            byte[] buffer = new byte[2048];
-            int bytesRead;
-            while ((bytesRead = in.read(buffer)) != -1) {
-                out.write(buffer, 0, bytesRead);
+    public static BufferedImage processImage(String imageUrl, int width, int height) throws IOException {
+        BufferedImage image;
+        try (InputStream in = new URL(imageUrl).openStream()) {
+            image = ImageIO.read(in);
+            if (image == null) {
+                throw new IOException("입력 이미지가 null입니다. 파일 형식이 지원되지 않거나 파일이 손상되었을 수 있습니다.");
             }
         }
-        return file;
-    }
 
-    public static void processAndResizeImage(File file, String outputPath, int width, int height) throws IOException {
-        if (isFileSizeOverLimit(file, 300 * 1024)) {
+        // 이미지 크기 조절
+        if (isFileSizeOverLimit(image, 300 * 1024)) {
             System.out.println("이미지 용량이 300KB 이상입니다. 이미지 가공을 시작합니다.");
-            imageResize(file, outputPath, width, height);
+            return resize(image, width, height);
         } else {
             System.out.println("이미지 용량이 300KB 이하입니다. 가공하지 않습니다.");
+            return image;
         }
     }
 
-    private static boolean isFileSizeOverLimit(File file, long limit) {
-        return file.exists() && file.length() > limit;
-    }
-
-    public static void imageResize(File file, String outputPath, int width, int height) throws IOException {
-        try (InputStream inputStream = new FileInputStream(file)) {
-            BufferedImage resizedImage = resize(inputStream, width, height);
-
-            String originalFileName = file.getName();
-            String newFileName = originalFileName.substring(0, originalFileName.lastIndexOf('.')) + ".jpg";
-            String fullOutputPath = outputPath + newFileName;
-
-            try (FileOutputStream fos = new FileOutputStream(fullOutputPath);
-                 ImageOutputStream ios = ImageIO.createImageOutputStream(fos)) {
-
-                ImageWriter writer = ImageIO.getImageWritersByFormatName("jpg").next();
-                writer.setOutput(ios);
-
-                ImageWriteParam param = writer.getDefaultWriteParam();
-                if (param.canWriteCompressed()) {
-                    param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-                    param.setCompressionQuality(0.8f); // 압축 품질 설정
-                }
-
-                writer.write(null, new IIOImage(resizedImage, null, null), param);
-                writer.dispose();
-                System.out.println("이미지 리사이즈 및 압축 완료: " + fullOutputPath);
-            }
+    private static boolean isFileSizeOverLimit(BufferedImage image, long limit) {
+        // 임시 파일로 저장하여 크기 확인
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            ImageIO.write(image, "jpg", baos);
+            return baos.size() > limit;
+        } catch (IOException e) {
+            return false;
         }
     }
 
-    public static BufferedImage resize(InputStream inputStream, int width, int height) throws IOException {
-        BufferedImage inputImage = ImageIO.read(inputStream);
-        if (inputImage == null) {
-            throw new IOException("입력 이미지가 null입니다. 파일 형식이 지원되지 않거나 파일이 손상되었을 수 있습니다.");
-        }
-
+    public static BufferedImage resize(BufferedImage inputImage, int width, int height) {
         BufferedImage outputImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-
         Graphics2D graphics2D = outputImage.createGraphics();
         graphics2D.drawImage(inputImage, 0, 0, width, height, null);
         graphics2D.dispose();
-
         return outputImage;
+    }
+
+    public static void saveImage(BufferedImage image, String filePath) throws IOException {
+        try (FileOutputStream fos = new FileOutputStream(filePath);
+             ImageOutputStream ios = ImageIO.createImageOutputStream(fos)) {
+
+            ImageWriter writer = ImageIO.getImageWritersByFormatName("jpg").next();
+            writer.setOutput(ios);
+
+            ImageWriteParam param = writer.getDefaultWriteParam();
+            if (param.canWriteCompressed()) {
+                param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+                param.setCompressionQuality(0.8f); // 압축 품질 설정
+            }
+
+            writer.write(null, new IIOImage(image, null, null), param);
+            writer.dispose();
+            System.out.println("이미지 저장 완료: " + filePath);
+        }
     }
 }
