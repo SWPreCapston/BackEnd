@@ -1,4 +1,4 @@
-package com.precapston.precapston.makeresize;
+package com.precapston.precapston.service;
 
 import com.precapston.precapston.PpurioAPI;
 import okhttp3.*;
@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
-import java.nio.file.Paths;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
@@ -16,13 +16,14 @@ import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageOutputStream;
 
-public class OpenAIAPI {
+public class ImageService {
     private static final String API_KEY = ""; // 여기에 API 키를 입력하세요
     private static final String API_URL = "https://api.openai.com/v1/images/generations";
 
-    public static void main(String[] args) {
-        String prompt = "고양이"; // 생성할 이미지에 대한 프롬프트
+    public static List<String> Service(String message) {
+        String prompt = message; // 생성할 이미지에 대한 프롬프트
         String outputPath = "C:\\Users\\wndhk\\aitest\\";
+        List<String> imageUrls = null;
         int width = 740;
         int height = 960;
         try {
@@ -32,16 +33,13 @@ public class OpenAIAPI {
                 File savedImage = saveImage(imageUrl, outputPath + "generated_image_" + (i + 1) + ".jpg");
                 processAndResizeImage(savedImage, outputPath, width, height);
                 System.out.println("Image saved as: " + savedImage.getName());
+                imageUrls.add(outputPath + "generated_image_" + (i + 1) + ".jpg");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        PpurioAPI ppurio=new PpurioAPI();
-        try {
-            ppurio.requestSend();
-        } catch (Exception e) {
-            System.err.println("문자 발송 요청 중 오류 발생: "+e.getMessage());
-        }
+
+        return imageUrls;
     }
 
     public static OkHttpClient createHttpClient() {
