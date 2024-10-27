@@ -21,7 +21,7 @@ public class OpenAIAPI {
     private static final String API_URL = "https://api.openai.com/v1/images/generations";
 
     public static void main(String[] args) {
-        String prompt = "고양이"; // 생성할 이미지에 대한 프롬프트
+        String prompt = "귀여운 강아지"; // 생성할 이미지에 대한 프롬프트
         String outputPath = "/Users/junghun/Desktop/"; // 이미지 저장 경로
         int width = 740;
         int height = 960;
