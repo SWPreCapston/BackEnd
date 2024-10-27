@@ -1,5 +1,6 @@
 package com.precapston.precapston.makeresize;
 
+import com.precapston.precapston.PpurioAPI;
 import okhttp3.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -34,6 +35,12 @@ public class OpenAIAPI {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        PpurioAPI ppurio=new PpurioAPI();
+        try {
+            ppurio.requestSend();
+        } catch (Exception e) {
+            System.err.println("문자 발송 요청 중 오류 발생: "+e.getMessage());
         }
     }
 
