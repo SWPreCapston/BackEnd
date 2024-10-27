@@ -1,9 +1,7 @@
 package com.precapston.precapston.controller;
 
-import com.precapston.precapston.dto.JoinDTO;
 import com.precapston.precapston.dto.LoginDTO;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;

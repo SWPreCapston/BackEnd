@@ -27,12 +27,6 @@ public class PrecapstonApplication {
 
 		SpringApplication.run(PrecapstonApplication.class, args);
 
-		ImageController a = new ImageController();
-		ImageDTO imageDTO = new ImageDTO();
-		imageDTO.setMessage("고양이");
-
-		a.createImage(imageDTO);
-
 	}
 }
 
