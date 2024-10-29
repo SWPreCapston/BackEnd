@@ -11,11 +11,12 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
+
 public class LoginController {
 
     @Autowired
     private LoginService loginService;
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> login(@RequestBody LoginDTO loginDTO) {
         boolean loginSuccess = loginService.loginProcess(loginDTO);
