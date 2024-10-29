@@ -24,7 +24,5 @@ public class LoginService {
             if(login_check){
 
             }
-
-
     }
 }
