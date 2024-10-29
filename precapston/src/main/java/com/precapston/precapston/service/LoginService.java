@@ -7,7 +7,6 @@ import com.precapston.precapston.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 @Service
 public class LoginService {
 
@@ -17,12 +16,13 @@ public class LoginService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    public boolean loginProcess(LoginDTO loginDTO) {
+        UserEntity user = userRepository.findByUsername(loginDTO.getUsername());
 
-    public void loginProcess(LoginDTO loginDTO) {
-            boolean login_check = userRepository.existsByUsernameAndPassword(loginDTO.getUsername(),loginDTO.getPassword());
-
-            if(login_check){
-
-            }
+        if (user != null && bCryptPasswordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
+            return true;
+        }
+        return false;
     }
 }
+
