@@ -1,22 +1,29 @@
 package com.precapston.precapston.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.precapston.precapston.dto.TextDTO;
 import okhttp3.*;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class TextService {
     private final String OPENAI_API_KEY = "";  // 여기에 OpenAI API 키를 입력하세요.
-    private final OkHttpClient client = new OkHttpClient();
+    private final OkHttpClient client = new OkHttpClient.Builder()
+            .connectTimeout(30, TimeUnit.SECONDS)  // 연결 타임아웃을 30초로 설정
+            .readTimeout(60, TimeUnit.SECONDS)     // 읽기 타임아웃을 60초로 설정
+            .writeTimeout(60, TimeUnit.SECONDS)    // 쓰기 타임아웃을 60초로 설정
+            .build();
 
-    public String generateMessage(String prompt) throws IOException {
+    public String generateMessage(TextDTO textDTO) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
 
         // OpenAI 요청 본문 생성
+        String prompt = createPrompt(textDTO);
         String jsonBody = objectMapper.writeValueAsString(new OpenAIRequest(prompt));
 
         RequestBody body = RequestBody.create(jsonBody, MediaType.parse("application/json"));
@@ -39,6 +46,15 @@ public class TextService {
             return response.body().string();
         }
     }
+    private String createPrompt(TextDTO textDTO) {
+        // 발송 목적, 내용, 주요 키워드를 기반으로 프롬프트 생성
+        StringBuilder promptBuilder = new StringBuilder();
+        promptBuilder.append("발송 목적 및 내용: ").append(textDTO.getPurposeContent()).append("\n");
+        promptBuilder.append("주요 키워드: ").append(String.join(", ", textDTO.getKeywords())).append("\n");
+        promptBuilder.append("이 정보를 바탕으로 메시지를 생성해 주세요.");
+        return promptBuilder.toString();
+    }
+
 
     // OpenAI 요청 클래스
     public static class OpenAIRequest {

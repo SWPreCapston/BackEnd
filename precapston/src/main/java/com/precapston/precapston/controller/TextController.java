@@ -1,5 +1,6 @@
 package com.precapston.precapston.controller;
 
+import com.precapston.precapston.dto.TextDTO;
 import com.precapston.precapston.service.TextService;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,9 +16,9 @@ public class TextController {
     }
 
     @PostMapping("/generate-message")
-    public String generateMessage(@RequestBody String prompt) {
+    public String generateMessage(@RequestBody TextDTO textDTO) {
         try {
-            return textService.generateMessage(prompt);
+            return textService.generateMessage(textDTO);
         } catch (IOException e) {
             return "Error: " + e.getMessage();
         }
