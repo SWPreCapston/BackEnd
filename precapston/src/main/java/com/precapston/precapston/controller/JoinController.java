@@ -13,7 +13,7 @@ import java.util.Map;
 @RequestMapping("/api") // 모든 API에 /api 경로를 추가
 //@CrossOrigin(origins = "http://localhost:3000") // CORS 허용 출처 설정
 @CrossOrigin(origins = "*") // 테스트를 위해 모든 출처 허용
-
+//@CrossOrigin(origins = "http://localhost:3000")
 public class JoinController {
 
     @Autowired
