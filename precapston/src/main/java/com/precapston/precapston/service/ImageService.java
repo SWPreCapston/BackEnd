@@ -1,5 +1,6 @@
 package com.precapston.precapston.service;
 
+import okhttp3.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.precapston.precapston.dto.ImageDTO;

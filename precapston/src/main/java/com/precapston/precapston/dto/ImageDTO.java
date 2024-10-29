@@ -1,3 +1,4 @@
+
 package com.precapston.precapston.dto;
 
 import lombok.Getter;
@@ -13,3 +14,4 @@ public class ImageDTO {
 
     //TO DO : 첨부이미지 변수추가해야됨
 }
+
