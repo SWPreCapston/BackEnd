@@ -7,11 +7,16 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class TextService {
     private final String OPENAI_API_KEY = "";  // 여기에 OpenAI API 키를 입력하세요.
-    private final OkHttpClient client = new OkHttpClient();
+    private final OkHttpClient client = new OkHttpClient.Builder()
+            .connectTimeout(30, TimeUnit.SECONDS)  // 연결 타임아웃을 30초로 설정
+            .readTimeout(60, TimeUnit.SECONDS)     // 읽기 타임아웃을 60초로 설정
+            .writeTimeout(60, TimeUnit.SECONDS)    // 쓰기 타임아웃을 60초로 설정
+            .build();
 
     public String generateMessage(String prompt) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
