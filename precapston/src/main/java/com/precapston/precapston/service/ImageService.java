@@ -1,6 +1,6 @@
 package com.precapston.precapston.service;
 
-import com.precapston.precapston.PpurioAPI;
+
 import okhttp3.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -10,7 +10,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.imageio.IIOImage;
@@ -21,19 +20,18 @@ import javax.imageio.stream.ImageOutputStream;
 
 @Service
 public class ImageService {
-    private static final String API_KEY = ""; // 환경 변수에서 API 키 가져오기
+    private static final String API_KEY = ""; // 여기에 API 키를 입력하세요
     private static final String API_URL = "https://api.openai.com/v1/images/generations";
 
-    public List<String> Service(String message) {
+    public static List<String> Service(String message) {
         String prompt = message; // 생성할 이미지에 대한 프롬프트
-        String outputPath = "C:\\Users\\wndhk\\aitest\\";
-        List<String> imageUrls = new ArrayList<>(); // 리스트 초기화
+        String outputPath = "C:\\Users\\goeka\\Desktop\\";
+        List<String> imageUrls = null;
         int width = 740;
         int height = 960;
-
         try {
             // 이미지 생성 및 리사이즈
-            for (int i = 0; i < 2; i++) { // 4개 이미지 생성
+            for (int i = 0; i < 1; i++) {
                 String imageUrl = generateImage(prompt);
                 File savedImage = saveImage(imageUrl, outputPath + "generated_image_" + (i + 1) + ".jpg");
                 processAndResizeImage(savedImage, outputPath, width, height);
@@ -42,13 +40,12 @@ public class ImageService {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("이미지 생성 과정에서 오류 발생: " + e.getMessage());
         }
 
         return imageUrls;
     }
 
-    private static OkHttpClient createHttpClient() {
+    public static OkHttpClient createHttpClient() {
         return new OkHttpClient.Builder()
                 .connectTimeout(40, TimeUnit.SECONDS)
                 .readTimeout(40, TimeUnit.SECONDS)
@@ -56,7 +53,7 @@ public class ImageService {
                 .build();
     }
 
-    private static String generateImage(String prompt) throws IOException {
+    public static String generateImage(String prompt) throws IOException {
         OkHttpClient client = createHttpClient();
         Gson gson = new Gson();
 
@@ -83,7 +80,7 @@ public class ImageService {
         return responseJson.getAsJsonArray("data").get(0).getAsJsonObject().get("url").getAsString();
     }
 
-    private static File saveImage(String imageUrl, String filePath) throws IOException {
+    public static File saveImage(String imageUrl, String filePath) throws IOException {
         File file = new File(filePath);
         try (InputStream in = new URL(imageUrl).openStream();
              FileOutputStream out = new FileOutputStream(file)) {
@@ -96,7 +93,7 @@ public class ImageService {
         return file;
     }
 
-    private static void processAndResizeImage(File file, String outputPath, int width, int height) throws IOException {
+    public static void processAndResizeImage(File file, String outputPath, int width, int height) throws IOException {
         if (isFileSizeOverLimit(file, 300 * 1024)) {
             System.out.println("이미지 용량이 300KB 이상입니다. 이미지 가공을 시작합니다.");
             imageResize(file, outputPath, width, height);
@@ -109,7 +106,7 @@ public class ImageService {
         return file.exists() && file.length() > limit;
     }
 
-    private static void imageResize(File file, String outputPath, int width, int height) throws IOException {
+    public static void imageResize(File file, String outputPath, int width, int height) throws IOException {
         try (InputStream inputStream = new FileInputStream(file)) {
             BufferedImage resizedImage = resize(inputStream, width, height);
 
@@ -136,13 +133,14 @@ public class ImageService {
         }
     }
 
-    private static BufferedImage resize(InputStream inputStream, int width, int height) throws IOException {
+    public static BufferedImage resize(InputStream inputStream, int width, int height) throws IOException {
         BufferedImage inputImage = ImageIO.read(inputStream);
         if (inputImage == null) {
             throw new IOException("입력 이미지가 null입니다. 파일 형식이 지원되지 않거나 파일이 손상되었을 수 있습니다.");
         }
 
         BufferedImage outputImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+
         Graphics2D graphics2D = outputImage.createGraphics();
         graphics2D.drawImage(inputImage, 0, 0, width, height, null);
         graphics2D.dispose();
