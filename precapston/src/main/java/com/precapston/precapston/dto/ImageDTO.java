@@ -12,5 +12,4 @@ public class ImageDTO {
     private String situation; //상황
 
     //TO DO : 첨부이미지 변수추가해야됨
-
 }

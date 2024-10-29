@@ -24,36 +24,41 @@ repositories {
 }
 
 dependencies {
+	// Spring Boot Starters
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-mustache'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	// https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
-	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.17.0'
+
+	// Apache Commons Lang
+	implementation 'org.apache.commons:commons-lang3:3.17.0'
+
+	// Lombok
 	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.mysql:mysql-connector-j'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
+	implementation 'org.projectlombok:lombok'
+
+	// MySQL Database Connector
+	runtimeOnly 'com.mysql:mysql-connector-j'
+
+	// Spring Boot DevTools for Development
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// Testing Dependencies
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-	implementation 'com.twelvemonkeys.imageio:imageio-webp:3.8.0' // 최신 버전으로 변경 가능
+	// Image Processing Libraries
+	implementation 'com.twelvemonkeys.imageio:imageio-webp:3.8.0'
 	implementation 'com.twelvemonkeys.imageio:imageio-core:3.8.0'
+
+	// OkHttp and Gson
 	implementation 'com.squareup.okhttp3:okhttp:4.9.3'
 	implementation 'com.google.code.gson:gson:2.8.9'
 
-	implementation('org.springframework.boot:spring-boot-starter-web')
-	implementation('org.projectlombok:lombok')
-	implementation('org.springframework.boot:spring-boot-starter-data-jpa')
-	implementation('com.h2database:h2')
-	testImplementation('org.springframework.boot:spring-boot-starter-test')
-	runtimeOnly 'com.mysql:mysql-connector-j'
-
-	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0' // 최신 버전 확인 가능
-
+	// SpringDoc OpenAPI for Swagger UI
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
-
 }
 
 tasks.named('test') {
