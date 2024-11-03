@@ -44,7 +44,7 @@ public class GIFService {
 //                + "캐릭터가 조금씩 다른 자세나 표정을 보이며 움직이는 프레임을 생성해 주세요. 단, 이미지에 글자는 포함하지 마세요.";
 
 
-        String outputPath = "C:\\Users\\goeka\\Desktop\\precapImage\\animated_image.gif";
+        String outputPath = "C:\\Users\\USER\\Desktop\\precapImage\\animated_image.gif";
         int width = 740;
         int height = 960;
         int frameCount = 3; // 프레임 수

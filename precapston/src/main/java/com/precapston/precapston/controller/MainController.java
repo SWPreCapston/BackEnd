@@ -17,6 +17,7 @@ import java.util.Map;
 public class MainController {
 
     @GetMapping("/")
+
     public ResponseEntity<Map<String, String>> mainP() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
