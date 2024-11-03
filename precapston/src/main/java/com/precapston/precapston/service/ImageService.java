@@ -1,36 +1,77 @@
 package com.precapston.precapston.service;
 
-import okhttp3.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.precapston.precapston.dto.ImageDTO;
+import com.precapston.precapston.repository.CategoryRepository;
+import okhttp3.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.*;
-import java.net.URL;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageOutputStream;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class ImageService {
-    private static final String API_KEY = ""; // 여기에 API 키를 입력하세요
+
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    private static final String API_KEY = ""; // 실제 API 키로 교체하세요
     private static final String API_URL = "https://api.openai.com/v1/images/generations";
 
-    public static List<String> Service(String message) {
-        String prompt = message; // 생성할 이미지에 대한 프롬프트
-        String outputPath = "C:\\Users\\goeka\\Desktop\\";
-        List<String> imageUrls = null;
+    public List<String> generateImages(ImageDTO imageDTO) {
+
+
+        String message = imageDTO.getMessage();     // 고객문자내용
+        String concept = imageDTO.getConcept();     // 컨셉
+        String group = imageDTO.getGroup();         // 그룹
+        String situation = imageDTO.getSituation(); // 상황
+
+        //String prompt = message + " 이미지를 생성해주는데,다음 내용을 참고해줘"
+        //        + categoryRepository.getCategoryContent(concept) + " ";
+
+        String prompt = "당신은 30년경력의 유능한 그래픽 디자이너입니다.\n" +
+                "\n" +
+                "당신은 의뢰인들의 이미지 만족도를 높이기 위해 끊임없이 노력합니다.\n" +
+                "\n" +
+                "다음 문자내용과 반드시 관련된 이미지를 만들어 주세요.\n" +
+                "\n" +
+                "관련이 없는 이미지 생성은 절대 안됩니다.\n" +
+                "\n" +
+                "======문자내용 ======" +
+                message +
+                "==================\n" +
+                "\n" +
+                "또한 반드시 이 이미지를 만들 때 "+ concept + "컨셉으로 만들어 주세요.\n" +
+                "\n" +
+                //"아래는 "+ concept +"컨셉에 대한 자세한 설명입니다. 반드시 이 설명을 참고하여(설명대로) 이미지를 생성해주세요.\n"
+                //+ categoryRepository.getCategoryContent(concept)
+                //+"\n"
+                 "또한, 이미지에 글자는 절대로, 절대로 안됩니다. 반드시 이미지를 생성하기 전 영어, 한글, 중국어 등 하나의 글자라도 절대 이미지에 포함시키면 안됩니다.";
+
+
+
+
+        String outputPath = "C:\\Users\\USER\\Desktop\\precapImage\\";
+        List<String> imageUrls = new ArrayList<>(); // 리스트 초기화
+
         int width = 740;
         int height = 960;
+
         try {
             // 이미지 생성 및 리사이즈
-            for (int i = 0; i < 1; i++) {
+            for (int i = 0; i < 2; i++) {
                 String imageUrl = generateImage(prompt);
                 File savedImage = saveImage(imageUrl, outputPath + "generated_image_" + (i + 1) + ".jpg");
                 processAndResizeImage(savedImage, outputPath, width, height);
@@ -44,7 +85,7 @@ public class ImageService {
         return imageUrls;
     }
 
-    public static OkHttpClient createHttpClient() {
+    private OkHttpClient createHttpClient() {
         return new OkHttpClient.Builder()
                 .connectTimeout(40, TimeUnit.SECONDS)
                 .readTimeout(40, TimeUnit.SECONDS)
@@ -52,7 +93,7 @@ public class ImageService {
                 .build();
     }
 
-    public static String generateImage(String prompt) throws IOException {
+    private String generateImage(String prompt) throws IOException {
         OkHttpClient client = createHttpClient();
         Gson gson = new Gson();
 
@@ -79,7 +120,7 @@ public class ImageService {
         return responseJson.getAsJsonArray("data").get(0).getAsJsonObject().get("url").getAsString();
     }
 
-    public static File saveImage(String imageUrl, String filePath) throws IOException {
+    public File saveImage(String imageUrl, String filePath) throws IOException {
         File file = new File(filePath);
         try (InputStream in = new URL(imageUrl).openStream();
              FileOutputStream out = new FileOutputStream(file)) {
@@ -92,7 +133,7 @@ public class ImageService {
         return file;
     }
 
-    public static void processAndResizeImage(File file, String outputPath, int width, int height) throws IOException {
+    public void processAndResizeImage(File file, String outputPath, int width, int height) throws IOException {
         if (isFileSizeOverLimit(file, 300 * 1024)) {
             System.out.println("이미지 용량이 300KB 이상입니다. 이미지 가공을 시작합니다.");
             imageResize(file, outputPath, width, height);
@@ -101,11 +142,11 @@ public class ImageService {
         }
     }
 
-    private static boolean isFileSizeOverLimit(File file, long limit) {
+    private boolean isFileSizeOverLimit(File file, long limit) {
         return file.exists() && file.length() > limit;
     }
 
-    public static void imageResize(File file, String outputPath, int width, int height) throws IOException {
+    public void imageResize(File file, String outputPath, int width, int height) throws IOException {
         try (InputStream inputStream = new FileInputStream(file)) {
             BufferedImage resizedImage = resize(inputStream, width, height);
 
@@ -132,7 +173,7 @@ public class ImageService {
         }
     }
 
-    public static BufferedImage resize(InputStream inputStream, int width, int height) throws IOException {
+    public BufferedImage resize(InputStream inputStream, int width, int height) throws IOException {
         BufferedImage inputImage = ImageIO.read(inputStream);
         if (inputImage == null) {
             throw new IOException("입력 이미지가 null입니다. 파일 형식이 지원되지 않거나 파일이 손상되었을 수 있습니다.");
