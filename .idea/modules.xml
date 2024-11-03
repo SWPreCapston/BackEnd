@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Back.iml" filepath="$PROJECT_DIR$/.idea/Back.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/precapston.iml" filepath="$PROJECT_DIR$/.idea/modules/precapston.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/precapston.main.iml" filepath="$PROJECT_DIR$/.idea/modules/precapston.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/precapston.test.iml" filepath="$PROJECT_DIR$/.idea/modules/precapston.test.iml" />
     </modules>
   </component>
 </project>

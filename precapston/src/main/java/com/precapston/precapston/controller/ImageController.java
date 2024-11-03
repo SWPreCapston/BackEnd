@@ -34,7 +34,7 @@ public class ImageController {
         String message = imageDTO.getMessage();
 
         // 이미지 URL 생성 및 반환
-        List<String> imageUrls = imageService.Service(message);
+        List<String> imageUrls = imageService.generateImages(imageDTO);
         return imageUrls.stream()
                 .map(imageName -> "http://localhost:8080/api/images/" + imageName) // 이미지 URL 형식
                 .collect(Collectors.toList());
