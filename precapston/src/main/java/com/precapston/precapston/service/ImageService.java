@@ -49,15 +49,18 @@ public class ImageService {
                 "\n" +
                 "관련이 없는 이미지 생성은 절대 안됩니다.\n" +
                 "\n" +
-                "======문자내용 ======" + message + "==================\n" +
+                "======문자내용 ======" +
+                message +
+                "==================\n" +
                 "\n" +
                 "또한 반드시 이 이미지를 만들 때 "+ concept + "컨셉으로 만들어 주세요.\n" +
                 "\n" +
-                "아래는 "+ concept +"컨셉에 대한 자세한 설명입니다. 반드시 이 설명을 참고하여(설명대로) 이미지를 생성해주세요." + categoryRepository.getCategoryContent(concept) ;
+                //"아래는 "+ concept +"컨셉에 대한 자세한 설명입니다. 반드시 이 설명을 참고하여(설명대로) 이미지를 생성해주세요.\n"
+                //+ categoryRepository.getCategoryContent(concept)
+                //+"\n"
+                 "또한, 이미지에 글자는 절대로, 절대로 안됩니다. 반드시 이미지를 생성하기 전 영어, 한글, 중국어 등 하나의 글자라도 절대 이미지에 포함시키면 안됩니다.";
 
 
-        //+ categoryRepository.getCategoryContent(group) + " "
-        //        + categoryRepository.getCategoryContent(situation)
 
 
         String outputPath = "C:\\Users\\goeka\\Desktop\\precapImage\\";

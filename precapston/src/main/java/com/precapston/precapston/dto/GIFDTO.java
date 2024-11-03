@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class ImageDTO {
+public class GIFDTO {
     private String message; //문자내용
     private String concept; //분위기
     private String group;   //조직
