@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.imageio.IIOImage;
@@ -25,13 +26,13 @@ public class ImageService {
 
     public static List<String> Service(String message) {
         String prompt = message; // 생성할 이미지에 대한 프롬프트
-        String outputPath = "C:\\Users\\goeka\\Desktop\\";
-        List<String> imageUrls = null;
+        String outputPath = "C:\\Users\\wndhk\\aitest";
+        List<String> imageUrls = new ArrayList<>(); // 초기화
         int width = 740;
         int height = 960;
         try {
             // 이미지 생성 및 리사이즈
-            for (int i = 0; i < 1; i++) {
+            for (int i = 0; i < 2; i++) {
                 String imageUrl = generateImage(prompt);
                 File savedImage = saveImage(imageUrl, outputPath + "generated_image_" + (i + 1) + ".jpg");
                 processAndResizeImage(savedImage, outputPath, width, height);
