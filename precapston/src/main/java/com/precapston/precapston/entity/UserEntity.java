@@ -18,7 +18,7 @@ public class UserEntity {
     @NotBlank(message = "Username cannot be empty")
     private String username;
 
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false, length = 100)
     @NotBlank(message = "Password cannot be empty")
     private String password;
 
