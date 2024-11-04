@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -16,7 +17,9 @@ import java.util.*;
 @Service
 public class MessageService {
     private static final Integer TIME_OUT = 5000;
-    private static final String API_KEY = "";
+
+    @Value("${ppurio}")
+    private String API_KEY;
     private static final String PPURIO_ACCOUNT = "woojj1254577";	//santoragi32
     private static final String FROM = "01072548535";
 //    private static final String FILE_PATH = "D:\\24-2\\SWFreeCapston_8\\Back\\precapston\\src\\main\\resources\\images\\testimg.jpg";

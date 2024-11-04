@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+######## APIKey INFO
+application-APIKey.properties
