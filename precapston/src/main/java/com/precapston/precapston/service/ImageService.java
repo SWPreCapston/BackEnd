@@ -45,7 +45,7 @@ public class ImageService {
                 "또한 반드시 이 이미지를 만들 때 " + concept + "컨셉으로 만들어 주세요.\n" +
                 "또한, 이미지에 글자는 절대로 포함시키면 안됩니다.";
 
-        String outputPath = "/Users/junghun/Desktop//";
+        String outputPath = "/Users/junghun/Desktop/generated_images//";
         List<String> imageUrls = new ArrayList<>(); // 리스트 초기화
 
         int width = 740;
