@@ -30,5 +30,21 @@ public class UserEntity {
     @NotBlank(message = "Phone number cannot be empty")
     private String phoneNumber;
 
+    @Column(length = 20)
     private String role;
+
+    // 기본 생성자
+    public UserEntity() {}
+
+    // toString() 메서드 (선택 사항)
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", name='" + name + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", role='" + role + '\'' +
+                '}';
+    }
 }
