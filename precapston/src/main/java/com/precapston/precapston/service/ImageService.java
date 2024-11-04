@@ -63,7 +63,7 @@ public class ImageService {
 
 
 
-        String outputPath = "C:\\Users\\USER\\Desktop\\precapImage\\";
+        String outputPath = "C:\\Users\\wndhk\\aitest\\";
         List<String> imageUrls = new ArrayList<>(); // 리스트 초기화
 
         int width = 740;
