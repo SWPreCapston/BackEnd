@@ -19,6 +19,9 @@ import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -31,55 +34,49 @@ public class ImageService {
     private static final String API_URL = "https://api.openai.com/v1/images/generations";
 
     public List<String> generateImages(ImageDTO imageDTO) {
-
-
         String message = imageDTO.getMessage();     // 고객문자내용
         String concept = imageDTO.getConcept();     // 컨셉
         String group = imageDTO.getGroup();         // 그룹
         String situation = imageDTO.getSituation(); // 상황
 
-        //String prompt = message + " 이미지를 생성해주는데,다음 내용을 참고해줘"
-        //        + categoryRepository.getCategoryContent(concept) + " ";
-
         String prompt = "당신은 30년경력의 유능한 그래픽 디자이너입니다.\n" +
-                "\n" +
-                "당신은 의뢰인들의 이미지 만족도를 높이기 위해 끊임없이 노력합니다.\n" +
-                "\n" +
                 "다음 문자내용과 반드시 관련된 이미지를 만들어 주세요.\n" +
-                "\n" +
-                "관련이 없는 이미지 생성은 절대 안됩니다.\n" +
-                "\n" +
-                "======문자내용 ======" +
-                message +
-                "==================\n" +
-                "\n" +
-                "또한 반드시 이 이미지를 만들 때 "+ concept + "컨셉으로 만들어 주세요.\n" +
-                "\n" +
-                //"아래는 "+ concept +"컨셉에 대한 자세한 설명입니다. 반드시 이 설명을 참고하여(설명대로) 이미지를 생성해주세요.\n"
-                //+ categoryRepository.getCategoryContent(concept)
-                //+"\n"
-                 "또한, 이미지에 글자는 절대로, 절대로 안됩니다. 반드시 이미지를 생성하기 전 영어, 한글, 중국어 등 하나의 글자라도 절대 이미지에 포함시키면 안됩니다.";
+                "======문자내용 ======" + message + "==================\n" +
+                "또한 반드시 이 이미지를 만들 때 " + concept + "컨셉으로 만들어 주세요.\n" +
+                "또한, 이미지에 글자는 절대로 포함시키면 안됩니다.";
 
-
-
-
-        String outputPath = "C:\\Users\\USER\\Desktop\\precapImage\\";
+        String outputPath = "/Users/junghun/Desktop//";
         List<String> imageUrls = new ArrayList<>(); // 리스트 초기화
 
         int width = 740;
         int height = 960;
+        int numberOfImages = 4; // 생성할 이미지 수
+
+        ExecutorService executor = Executors.newFixedThreadPool(numberOfImages);
+        List<Future<String>> futures = new ArrayList<>();
 
         try {
             // 이미지 생성 및 리사이즈
-            for (int i = 0; i < 2; i++) {
-                String imageUrl = generateImage(prompt);
-                File savedImage = saveImage(imageUrl, outputPath + "generated_image_" + (i + 1) + ".jpg");
-                processAndResizeImage(savedImage, outputPath, width, height);
-                System.out.println("Image saved as: " + savedImage.getName());
-                imageUrls.add(outputPath + "generated_image_" + (i + 1) + ".jpg");
+            for (int i = 0; i < numberOfImages; i++) {
+                final int index = i; // 람다 표현식에서 사용할 index
+                Future<String> future = executor.submit(() -> {
+                    String imageUrl = generateImage(prompt);
+                    File savedImage = saveImage(imageUrl, outputPath + "generated_image_" + (index + 1) + ".jpg");
+                    processAndResizeImage(savedImage, outputPath, width, height);
+                    System.out.println("Image saved as: " + savedImage.getName());
+                    return outputPath + "generated_image_" + (index + 1) + ".jpg";
+                });
+                futures.add(future);
             }
-        } catch (IOException e) {
+
+            // 모든 Future로부터 결과를 가져옵니다.
+            for (Future<String> future : futures) {
+                imageUrls.add(future.get()); // 이미지 URL을 리스트에 추가
+            }
+        } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            executor.shutdown(); // ExecutorService 종료
         }
 
         return imageUrls;
