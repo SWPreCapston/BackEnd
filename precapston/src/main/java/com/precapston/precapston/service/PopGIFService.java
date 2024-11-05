@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class GIFService {
+public class PopGIFService {  // 전혀다른 이미지 이어붙이는 서비스!!!!!!!!!!
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -31,7 +31,7 @@ public class GIFService {
     public String generateAnimatedGIF(GIFDTO gifdto) {
 
         String message = gifdto.getMessage();
-        String concept = gifdto.getConcept();
+        //String concept = gifdto.getConcept();
         String prompt = "당신은 30년경력의 유능한 GIF 그래픽 디자이너입니다.\n"
                 + "다음 문자내용과 반드시 관련된 GIF 이미지를 만들어 주세요.\n"
                 + "======문자내용 ======" + message + "==================\n"

@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class ImageService {
+public class FourCutToonService {
 
     @Autowired
     private CategoryRepository categoryRepository;

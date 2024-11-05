@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class TextService {
+public class MotionDescriptionService {
     private final String OPENAI_API_KEY = "";  // 여기에 OpenAI API 키를 입력하세요.
     private final OkHttpClient client = new OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)  // 연결 타임아웃을 30초로 설정
@@ -19,11 +19,11 @@ public class TextService {
             .writeTimeout(60, TimeUnit.SECONDS)    // 쓰기 타임아웃을 60초로 설정
             .build();
 
-    public String generateMessage(TextDTO textDTO) throws IOException {
+    public String generateMessage(String descriptionOrder) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
 
         // OpenAI 요청 본문 생성
-        String prompt = createPrompt(textDTO);
+        String prompt = descriptionOrder;
         String jsonBody = objectMapper.writeValueAsString(new OpenAIRequest(prompt));
 
         RequestBody body = RequestBody.create(jsonBody, MediaType.parse("application/json"));

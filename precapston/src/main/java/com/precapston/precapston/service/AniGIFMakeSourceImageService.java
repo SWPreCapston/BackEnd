@@ -2,10 +2,11 @@ package com.precapston.precapston.service;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.precapston.precapston.dto.GIFDTO;
 import com.precapston.precapston.dto.ImageDTO;
 import com.precapston.precapston.repository.CategoryRepository;
 import okhttp3.*;
-import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.IIOImage;
@@ -22,46 +23,25 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class ImageService {
+public class AniGIFMakeSourceImageService {
 
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private MotionDescriptionService motionDescriptionService;
+
     private static final String API_KEY = ""; // 실제 API 키로 교체하세요
     private static final String API_URL = "https://api.openai.com/v1/images/generations";
 
-    public List<String> generateImages(ImageDTO imageDTO) {
+    public List<String> generateImages(GIFDTO gifDTO) throws IOException {
 
 
-        String message = imageDTO.getMessage();     // 고객문자내용
-        String concept = imageDTO.getConcept();     // 컨셉
-        String group = imageDTO.getGroup();         // 그룹
-        String situation = imageDTO.getSituation(); // 상황
-
-        //String prompt = message + " 이미지를 생성해주는데,다음 내용을 참고해줘"
-        //        + categoryRepository.getCategoryContent(concept) + " ";
-
-//        String prompt = "당신은 30년경력의 유능한 그래픽 디자이너입니다.\n" +
-//                "\n" +
-//                "당신은 의뢰인들의 이미지 만족도를 높이기 위해 끊임없이 노력합니다.\n" +
-//                "\n" +
-//                "다음 문자내용과 반드시 관련된 이미지를 만들어 주세요.\n" +
-//                "\n" +
-//                "관련이 없는 이미지 생성은 절대 안됩니다.\n" +
-//                "\n" +
-//                "======문자내용 ======" +
-//                message +
-//                "==================\n" +
-//                "\n" +
-//                "또한 반드시 이 이미지를 만들 때 "+ concept + "컨셉으로 만들어 주세요.\n" +
-//                "\n" +
-//                //"아래는 "+ concept +"컨셉에 대한 자세한 설명입니다. 반드시 이 설명을 참고하여(설명대로) 이미지를 생성해주세요.\n"
-//                //+ categoryRepository.getCategoryContent(concept)
-//                //+"\n"
-//                 "또한, 이미지에 글자는 절대로, 절대로 안됩니다. 반드시 이미지를 생성하기 전 영어, 한글, 중국어 등 하나의 글자라도 절대 이미지에 포함시키면 안됩니다.";
-
+        String who = gifDTO.getWho();
+        String move = gifDTO.getMove();
+        String where = gifDTO.getWhere();
         String prompt ="MISSION\n" +
-                "Act as a professional 8-bit animator who specializes in creating animals. Create a *side-view* sprite sheet with 4 different, square frames of a [man], [dancing] in a [forest], 8-bit, motion blur, brown-core. Your task is complete when there is a single image with 4 panels as described below.\n" +
+                "Act as a professional 8-bit animator who specializes in creating animals. Create a *side-view* sprite sheet with 4 different, square frames of a [" +who+ "], [" +move+ "] in a [" +where+ "], 8-bit, motion blur, brown-core. Your task is complete when there is a single image with 4 panels as described below.\n" +
                 "\n" +
                 "IMAGES\n" +
                 "\n" +
@@ -71,40 +51,68 @@ public class ImageService {
                 "4. Bottom Right: [motion 4 description]\n" +
                 "\n" +
                 "RULES\n" +
+                "Ensure there are exactly 4 frames—no more, no less. \n" +
+                "Ensure The divider between frames must be exactly 1 pixel wide—no thicker under any circumstances. \n" +
+                "Ensure The dividing line between frames must be black." +
                 "Ensure the subject is centered in each frame\n" +
                 "Ensure each frame is from a side view\n" +
+                "Ensure each frame is 512x512 in size \n"+
                 "Ensure the subject is always facing to the right\n" +
                 "Output ALL 4 FRAMES from the same seed\n" +
                 "\n" +
+                "\n" ;
+        String descriptionOrder = prompt
+//                + "당신은 30년 경력의 전문 에니메이터입니다. \n" +
+//                "당신은 의뢰인들에게 만족스러운 gif이미지를 제공하기 위해 최선을 다해 노력합니다.\n" +
+//                "당신은 motion 1,2,3,4 이미지가 순차적으로 보여지는 에니메이션 gif를 만들려고 합니다.\n" +
+//                "\n" +
+//                "위의 미션 내용을 반드시 참고하여 \n" +
+//                "motion 1 description, motion 2 description, motion 3 description, motion 4 description 에 들어갈 내용을 아주 자세하게 기획해주세요.";
+                +"You are a professional animator with 30 years of experience.\n" +
+                "You always strive to provide clients with satisfying GIF images.\n" +
+                "You are planning to create an animated GIF where motion 1, 2, 3, and 4 images are displayed sequentially.\n" +
                 "\n" +
-                "motion 1 description:\n" +
-                "남성이 오른발을 들어올리고 가볍게 점프하듯 준비 자세를 취합니다. 오른쪽 팔은 몸쪽으로 살짝 들어 올려 균형을 잡고, 왼팔은 자연스럽게 아래로 늘어뜨려 초기의 역동적인 움직임을 암시합니다. 다리를 구부린 자세와 살짝 앞으로 기울어진 몸이 동작의 시작을 알립니다. 모션 블러가 살짝 적용되어 다리가 움직이는 듯한 느낌을 줍니다.\n" +
-                "\n" +
-                "motion 2 description:\n" +
-                "남성이 점프하여 공중에 떠 있는 모습입니다. 왼발이 앞으로 뻗어져 있고, 오른발은 뒤로 접혀 균형을 잡는 모습입니다. 오른쪽 팔은 높이 올라가며 춤에 활기를 더하고, 왼팔은 앞쪽으로 뻗어 관객에게 역동적인 인상을 줍니다. 숲속 배경과 모션 블러가 겹쳐지면서 움직임의 속도감을 강조합니다.\n" +
-                "\n" +
-                "motion 3 description:\n" +
-                "남성이 점프 후 내려와 오른발로 땅을 디디며 왼발을 약간 앞으로 구부린 모습입니다. 오른팔은 몸 앞으로 가며 균형을 잡고, 왼팔은 아래로 내려가 약간 흔들리는 모습입니다. 이 동작은 이전 동작의 에너지를 이어받아 땅을 딛는 순간을 강조하며, 동작이 빠르게 이어지는 느낌을 줍니다.\n" +
-                "\n" +
-                "motion 4 description:\n" +
-                "남성이 점프에서 착지한 후 다시 준비 자세로 돌아갑니다. 두 다리는 약간 벌어져 안정된 자세를 취하며, 양팔은 자연스럽게 늘어뜨려 춤의 한 사이클이 마무리됨을 나타냅니다. 모션 블러를 최소화해 안정감을 부여하며, 다음 동작으로 이어질 듯한 여운을 남깁니다.";
+                "Please refer carefully to the mission details above and plan detailed descriptions for motion 1, motion 2, motion 3, and motion 4.";
+        String motionDescription = motionDescriptionService.generateMessage(descriptionOrder);
+
+        System.out.println(motionDescription);
+
+        String imgPrompt = prompt + motionDescription;
+
+
+
+
+
+
+
+                //motionDescription;
+
+//                "motion 1 description:\n" +
+//                "남성이 오른발을 들어올리고 가볍게 점프하듯 준비 자세를 취합니다. 오른쪽 팔은 몸쪽으로 살짝 들어 올려 균형을 잡고, 왼팔은 자연스럽게 아래로 늘어뜨려 초기의 역동적인 움직임을 암시합니다. 다리를 구부린 자세와 살짝 앞으로 기울어진 몸이 동작의 시작을 알립니다. 모션 블러가 살짝 적용되어 다리가 움직이는 듯한 느낌을 줍니다.\n" +
+//                "\n" +
+//                "motion 2 description:\n" +
+//                "남성이 점프하여 공중에 떠 있는 모습입니다. 왼발이 앞으로 뻗어져 있고, 오른발은 뒤로 접혀 균형을 잡는 모습입니다. 오른쪽 팔은 높이 올라가며 춤에 활기를 더하고, 왼팔은 앞쪽으로 뻗어 관객에게 역동적인 인상을 줍니다. 숲속 배경과 모션 블러가 겹쳐지면서 움직임의 속도감을 강조합니다.\n" +
+//                "\n" +
+//                "motion 3 description:\n" +
+//                "남성이 점프 후 내려와 오른발로 땅을 디디며 왼발을 약간 앞으로 구부린 모습입니다. 오른팔은 몸 앞으로 가며 균형을 잡고, 왼팔은 아래로 내려가 약간 흔들리는 모습입니다. 이 동작은 이전 동작의 에너지를 이어받아 땅을 딛는 순간을 강조하며, 동작이 빠르게 이어지는 느낌을 줍니다.\n" +
+//                "\n" +
+//                "motion 4 description:\n" +
+//                "남성이 점프에서 착지한 후 다시 준비 자세로 돌아갑니다. 두 다리는 약간 벌어져 안정된 자세를 취하며, 양팔은 자연스럽게 늘어뜨려 춤의 한 사이클이 마무리됨을 나타냅니다. 모션 블러를 최소화해 안정감을 부여하며, 다음 동작으로 이어질 듯한 여운을 남깁니다.";
 
 
         String outputPath = "C:\\Users\\goeka\\Desktop\\precapImage\\";
         List<String> imageUrls = new ArrayList<>(); // 리스트 초기화
 
-        int width = 740;
-        int height = 740;
+        int width = 1024;
+        int height = 1024;
 
         try {
             // 이미지 생성 및 리사이즈
-            for (int i = 0; i < 2; i++) {
-                String imageUrl = generateImage(prompt);
-                File savedImage = saveImage(imageUrl, outputPath + "generated_image_" + (i + 1) + ".jpg");
+                String imageUrl = generateImage(imgPrompt);
+                File savedImage = saveImage(imageUrl,outputPath + "source.jpg");
                 processAndResizeImage(savedImage, outputPath, width, height);
                 System.out.println("Image saved as: " + savedImage.getName());
-                imageUrls.add(outputPath + "generated_image_" + (i + 1) + ".jpg");
-            }
+                imageUrls.add(outputPath + "source.jpg");
         } catch (IOException e) {
             e.printStackTrace();
         }
