@@ -2,6 +2,7 @@ package com.precapston.precapston.controller;
 
 import com.precapston.precapston.dto.JoinDTO;
 import com.precapston.precapston.service.JoinService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,6 @@ import java.util.Map;
 @RequestMapping("/api") // 모든 API에 /api 경로를 추가
 //@CrossOrigin(origins = "http://localhost:3000") // CORS 허용 출처 설정
 @CrossOrigin(origins = "*") // 테스트를 위해 모든 출처 허용
-
 public class JoinController {
 
     @Autowired
@@ -26,8 +26,9 @@ public class JoinController {
         return ResponseEntity.ok(response);
     }
 
+
     @PostMapping("/joinProc")
-    public ResponseEntity<Map<String, String>> joinProcess(@RequestBody JoinDTO joinDTO) {
+    public ResponseEntity<Map<String, String>> joinProcess(@Valid @RequestBody JoinDTO joinDTO) {
         System.out.println(joinDTO.getUsername());
         joinService.joinProcess(joinDTO);
 

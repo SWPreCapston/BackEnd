@@ -63,11 +63,11 @@ public class ImageService {
 
 
 
-        String outputPath = "C:\\Users\\goeka\\Desktop\\precapImage\\";
+        String outputPath = "C:\\Users\\USER\\Desktop\\precapImage\\";
         List<String> imageUrls = new ArrayList<>(); // 리스트 초기화
 
         int width = 740;
-        int height = 960;
+        int height = 740;
 
         try {
             // 이미지 생성 및 리사이즈
