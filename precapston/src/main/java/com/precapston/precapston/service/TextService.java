@@ -3,6 +3,7 @@ package com.precapston.precapston.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.precapston.precapston.dto.TextDTO;
 import okhttp3.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -12,7 +13,8 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class TextService {
-    private final String OPENAI_API_KEY = "";  // 여기에 OpenAI API 키를 입력하세요.
+    @Value("${openai}")
+    private String OPENAI_API_KEY;  // 여기에 OpenAI API 키를 입력하세요.
     private final OkHttpClient client = new OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)  // 연결 타임아웃을 30초로 설정
             .readTimeout(60, TimeUnit.SECONDS)     // 읽기 타임아웃을 60초로 설정
