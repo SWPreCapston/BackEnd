@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class TextService {
     @Value("${openai}")
-    private String OPENAI_API_KEY;  // 여기에 OpenAI API 키를 입력하세요.
+    private String API_KEY;  // 여기에 OpenAI API 키를 입력하세요.
     private final OkHttpClient client = new OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)  // 연결 타임아웃을 30초로 설정
             .readTimeout(60, TimeUnit.SECONDS)     // 읽기 타임아웃을 60초로 설정
@@ -36,7 +36,7 @@ public class TextService {
         Request request = new Request.Builder()
                 .url(url)  // 요청 URL
                 .post(body)
-                .addHeader("Authorization", "Bearer " + OPENAI_API_KEY)
+                .addHeader("Authorization", "Bearer " + API_KEY)
                 .addHeader("Content-Type", "application/json")
                 .build();
 
