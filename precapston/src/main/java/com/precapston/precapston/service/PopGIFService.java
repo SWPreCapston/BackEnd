@@ -7,6 +7,7 @@ import com.precapston.precapston.dto.GifSequenceWriter;
 import com.precapston.precapston.repository.CategoryRepository;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
@@ -25,7 +26,8 @@ public class PopGIFService {  // 전혀다른 이미지 이어붙이는 서비�
     @Autowired
     private CategoryRepository categoryRepository;
 
-    private static final String API_KEY = ""; // 실제 API 키로 교체하세요
+    @Value("${openai}")
+    private String API_KEY; // 실제 API 키로 교체하세요
     private static final String API_URL = "https://api.openai.com/v1/images/generations";
 
     public String generateAnimatedGIF(GIFDTO gifdto) {
@@ -47,17 +49,22 @@ public class PopGIFService {  // 전혀다른 이미지 이어붙이는 서비�
         String outputPath = "C:\\Users\\USER\\Desktop\\precapImage\\animated_image.gif";
         int width = 740;
         int height = 960;
-        int frameCount = 3; // 프레임 수
+        int frameCount = 2; // 프레임 수
         List<BufferedImage> frames = new ArrayList<>();
 
         try {
             // 프레임 이미지 생성 및 저장하지 않고 메모리에 유지
-            for (int i = 0; i < frameCount; i++) {
+//            for (int i = 0; i < frameCount; i++) {
                 String imageUrl = generateImage(prompt);
                 BufferedImage frame = downloadImage(imageUrl);
                 BufferedImage resizedFrame = resize(frame, width, height);
                 frames.add(resizedFrame); // 메모리에 저장
-            }
+
+                String imageUrl2 = generateImage("이전 이미지에서 물체에 약간의 변화를 준 이미지를 한 장 더 만들어 주세요.\n");
+                frame = downloadImage(imageUrl2);
+                BufferedImage resizedFrame2 = resize(frame, width, height);
+                frames.add(resizedFrame2);
+//            }
 
             // 프레임을 이용해 애니메이션 GIF 생성
             createAnimatedGIF(frames, outputPath);

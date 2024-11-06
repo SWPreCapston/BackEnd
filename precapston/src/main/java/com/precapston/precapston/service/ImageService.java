@@ -6,6 +6,7 @@ import com.precapston.precapston.dto.ImageDTO;
 import com.precapston.precapston.repository.CategoryRepository;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.IIOImage;
@@ -30,7 +31,8 @@ public class ImageService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    private static final String API_KEY = ""; // 실제 API 키로 교체하세요
+    @Value("${openai}")
+    private String API_KEY; // 실제 API 키로 교체하세요
     private static final String API_URL = "https://api.openai.com/v1/images/generations";
 
     public List<String> generateImages(ImageDTO imageDTO) {
