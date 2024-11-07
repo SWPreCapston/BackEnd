@@ -43,7 +43,7 @@ public class GIFController {
             aniGIFService.createGif(); //AniGIFService의 createGif 메소드 호출
 
             //이제 이미지url은 고정 dest.gif이므로 이 경로 반환
-            imageUrl ="C:\\Users\\goeka\\Desktop\\precapImage\\dest.gif";
+            imageUrl ="C:\\Users\\USER\\Desktop\\precapImage\\dest.gif";
 
         } else if(gifdto.getCategory().equals("팝")) {
             // "팝" 카테고리일 경우 PopGIFService의 generateAnimatedGIF 메소드 호출

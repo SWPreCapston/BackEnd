@@ -53,17 +53,24 @@ public class AniGIFMakeSourceImageService {
                 "3. Bottom Left: [motion 3 description]\n" +
                 "4. Bottom Right: [motion 4 description]\n" +
                 "\n" +
+//                "RULES\n" +
+//                "Ensure there are exactly 4 frames—no more, no less. \n" +
+//                "Ensure The divider between frames must be exactly 1 pixel wide—no thicker under any circumstances. \n" +
+//                "Ensure The dividing line between frames must be black." +
+//                "Ensure the subject is centered in each frame\n" +
+//                "Ensure each frame is from a side view\n" +
+//                "Ensure each frame is 512x512 in size \n"+
+//                "Ensure the subject is always facing to the right\n" +
+//                "Output ALL 4 FRAMES from the same seed\n" +
                 "RULES\n" +
-                "Ensure there are exactly 4 frames—no more, no less. \n" +
-                "Ensure The divider between frames must be exactly 1 pixel wide—no thicker under any circumstances. \n" +
-                "Ensure The dividing line between frames must be black." +
+                "Take a deep breath and read each rule carefully, ensuring that you apply every single rule without missing any.\n" +
                 "Ensure the subject is centered in each frame\n" +
                 "Ensure each frame is from a side view\n" +
-                "Ensure each frame is 512x512 in size \n"+
+                "Ensure the subject must not go outside the frame.\nThere must be only one subject per frame." +
+                "Do not include any letters or numbers in each frame.\n" +
+                "Ensure there is no gap between each frame.\n" +
                 "Ensure the subject is always facing to the right\n" +
-                "Output ALL 4 FRAMES from the same seed\n" +
-                "\n" +
-                "\n" ;
+                "Output ALL 4 FRAMES from the same seed\n\n";
         String descriptionOrder = prompt
 //                + "당신은 30년 경력의 전문 에니메이터입니다. \n" +
 //                "당신은 의뢰인들에게 만족스러운 gif이미지를 제공하기 위해 최선을 다해 노력합니다.\n" +

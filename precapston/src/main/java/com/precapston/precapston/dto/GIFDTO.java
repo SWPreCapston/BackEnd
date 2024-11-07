@@ -6,12 +6,10 @@ import lombok.Setter;
 @Setter
 @Getter
 public class GIFDTO {
+    private String category; // 1.애니 / 2.확대 / 3.축소 / 4.팝 ->전혀다른이미지
     private String message; //문자내용
     //private String concept; //분위기
     //private String group;   //조직
-    //private String situation; //상황
-
-    private String category; // 1.애니 / 2.확대 / 3.축소 / 4.팝 ->전혀다른이미지
 
     //애니GIF 로직에 필요한것
     private String who; //피사체
