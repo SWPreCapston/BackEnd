@@ -42,6 +42,7 @@ public class ImageService {
         String concept = imageDTO.getConcept();     // 컨셉
         String group = imageDTO.getGroup();         // 그룹
         String situation = imageDTO.getSituation(); // 상황
+        String imageBase64 = imageDTO.getImageBase64();
 
         //String prompt = message + " 이미지를 생성해주는데,다음 내용을 참고해줘"
         //        + categoryRepository.getCategoryContent(concept) + " ";
@@ -111,7 +112,7 @@ public class ImageService {
             for (int i = 0; i < numberOfImages; i++) {
                 final int index = i; // 람다 표현식에서 사용할 index
                 Future<String> future = executor.submit(() -> {
-                    String imageUrl = generateImage(prompt);
+                    String imageUrl = generateImage(prompt, imageBase64);
                     File savedImage = saveImage(imageUrl, outputPath + "generated_image_" + (index + 1) + ".jpg");
                     processAndResizeImage(savedImage, outputPath, width, height);
                     System.out.println("Image saved as: " + savedImage.getName());
@@ -141,7 +142,7 @@ public class ImageService {
                 .build();
     }
 
-    private String generateImage(String prompt) throws IOException {
+    private String generateImage(String prompt, String imageBase64) throws IOException {
         OkHttpClient client = createHttpClient();
         Gson gson = new Gson();
 
@@ -150,6 +151,12 @@ public class ImageService {
         json.addProperty("prompt", prompt);
         json.addProperty("n", 1);
         json.addProperty("size", "1024x1024");
+
+        // 첨부 이미지가 존재하는 경우 JSON에 포함
+        if (imageBase64 != null && !imageBase64.isEmpty()) {
+            json.addProperty("image", imageBase64);
+        }
+
 
         RequestBody body = RequestBody.create(json.toString(), MediaType.get("application/json; charset=utf-8"));
         Request request = new Request.Builder()
