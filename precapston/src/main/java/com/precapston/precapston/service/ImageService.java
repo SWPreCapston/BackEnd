@@ -46,25 +46,27 @@ public class ImageService {
 
         //String prompt = message + " 이미지를 생성해주는데,다음 내용을 참고해줘"
         //        + categoryRepository.getCategoryContent(concept) + " ";
-
-        String prompt = "당신은 30년경력의 유능한 그래픽 디자이너입니다.\n" +
-                "\n" +
-                "당신은 의뢰인들의 이미지 만족도를 높이기 위해 끊임없이 노력합니다.\n" +
-                "\n" +
-                "다음 문자내용과 반드시 관련된 이미지를 만들어 주세요.\n" +
-                "\n" +
-                "관련이 없는 이미지 생성은 절대 안됩니다.\n" +
-                "\n" +
-                "======문자내용 ======" +
-                message +
-                "==================\n" +
-                "\n" +
-                "또한 반드시 이 이미지를 만들 때 "+ concept + "컨셉으로 만들어 주세요.\n" +
-                "\n" +
-                //"아래는 "+ concept +"컨셉에 대한 자세한 설명입니다. 반드시 이 설명을 참고하여(설명대로) 이미지를 생성해주세요.\n"
-                //+ categoryRepository.getCategoryContent(concept)
-                //+"\n"
-                 "또한, 이미지에 글자는 절대로, 절대로 안됩니다. 반드시 이미지를 생성하기 전 영어, 한글, 중국어 등 하나의 글자라도 절대 이미지에 포함시키면 안됩니다.";
+        String prompt;
+        if (imageBase64 != null && !imageBase64.isEmpty()) {
+            prompt = "당신은 30년경력의 유능한 그래픽 디자이너입니다.\n" +
+            "\n" +
+            "당신은 의뢰인들의 이미지 만족도를 높이기 위해 끊임없이 노력합니다.\n" +
+            "\n" +
+            "다음 문자내용과 반드시 관련된 이미지를 만들어 주세요.\n" +
+            "\n" +
+            "관련이 없는 이미지 생성은 절대 안됩니다.\n" +
+            "\n" +
+            "======문자내용 ======" +
+            message +
+            "==================\n" +
+            "\n" +
+            "또한 반드시 이 이미지를 만들 때 " + concept + "컨셉으로 만들어 주세요.\n" +
+            "\n" +
+            //"아래는 "+ concept +"컨셉에 대한 자세한 설명입니다. 반드시 이 설명을 참고하여(설명대로) 이미지를 생성해주세요.\n"
+            //+ categoryRepository.getCategoryContent(concept)
+            //+"\n"
+            "또한, 이미지에 글자는 절대로, 절대로 안됩니다. 반드시 이미지를 생성하기 전 영어, 한글, 중국어 등 하나의 글자라도 절대 이미지에 포함시키면 안됩니다."+
+            "또한, 아래의 이미지를 참고하여 비슷한 이미지를 생성해주세요.\n" + "[참고 이미지 Base64: " + imageBase64 + "]";
 
 //        String prompt ="MISSION\n" +
 //                "Act as a professional 8-bit animator who specializes in creating animals. Create a *side-view* sprite sheet with 4 different, square frames of a [man], [dancing] in a [forest], 8-bit, motion blur, brown-core. Your task is complete when there is a single image with 4 panels as described below.\n" +
@@ -94,7 +96,26 @@ public class ImageService {
 //                "\n" +
 //                "motion 4 description:\n" +
 //                "남성이 점프에서 착지한 후 다시 준비 자세로 돌아갑니다. 두 다리는 약간 벌어져 안정된 자세를 취하며, 양팔은 자연스럽게 늘어뜨려 춤의 한 사이클이 마무리됨을 나타냅니다. 모션 블러를 최소화해 안정감을 부여하며, 다음 동작으로 이어질 듯한 여운을 남깁니다.";
-
+        } else{
+            prompt = "당신은 30년경력의 유능한 그래픽 디자이너입니다.\n" +
+                    "\n" +
+                    "당신은 의뢰인들의 이미지 만족도를 높이기 위해 끊임없이 노력합니다.\n" +
+                    "\n" +
+                    "다음 문자내용과 반드시 관련된 이미지를 만들어 주세요.\n" +
+                    "\n" +
+                    "관련이 없는 이미지 생성은 절대 안됩니다.\n" +
+                    "\n" +
+                    "======문자내용 ======" +
+                    message +
+                    "==================\n" +
+                    "\n" +
+                    "또한 반드시 이 이미지를 만들 때 " + concept + "컨셉으로 만들어 주세요.\n" +
+                    "\n" +
+                    //"아래는 "+ concept +"컨셉에 대한 자세한 설명입니다. 반드시 이 설명을 참고하여(설명대로) 이미지를 생성해주세요.\n"
+                    //+ categoryRepository.getCategoryContent(concept)
+                    //+"\n"
+                    "또한, 이미지에 글자는 절대로, 절대로 안됩니다. 반드시 이미지를 생성하기 전 영어, 한글, 중국어 등 하나의 글자라도 절대 이미지에 포함시키면 안됩니다.";
+        }
 
 
         String outputPath = "C:\\Users\\USER\\Desktop\\precapImage\\";
@@ -112,7 +133,7 @@ public class ImageService {
             for (int i = 0; i < numberOfImages; i++) {
                 final int index = i; // 람다 표현식에서 사용할 index
                 Future<String> future = executor.submit(() -> {
-                    String imageUrl = generateImage(prompt, imageBase64);
+                    String imageUrl = generateImage(prompt);
                     File savedImage = saveImage(imageUrl, outputPath + "generated_image_" + (index + 1) + ".jpg");
                     processAndResizeImage(savedImage, outputPath, width, height);
                     System.out.println("Image saved as: " + savedImage.getName());
@@ -142,7 +163,7 @@ public class ImageService {
                 .build();
     }
 
-    private String generateImage(String prompt, String imageBase64) throws IOException {
+    private String generateImage(String prompt) throws IOException {
         OkHttpClient client = createHttpClient();
         Gson gson = new Gson();
 
@@ -152,10 +173,6 @@ public class ImageService {
         json.addProperty("n", 1);
         json.addProperty("size", "1024x1024");
 
-        // 첨부 이미지가 존재하는 경우 JSON에 포함
-        if (imageBase64 != null && !imageBase64.isEmpty()) {
-            json.addProperty("image", imageBase64);
-        }
 
 
         RequestBody body = RequestBody.create(json.toString(), MediaType.get("application/json; charset=utf-8"));
