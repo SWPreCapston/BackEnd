@@ -53,36 +53,36 @@ public class AniGIFMakeSourceImageService {
                 "3. Bottom Left: [motion 3 description]\n" +
                 "4. Bottom Right: [motion 4 description]\n" +
                 "\n" +
-//                "RULES\n" +
-//                "Ensure there are exactly 4 frames—no more, no less. \n" +
-//                "Ensure The divider between frames must be exactly 1 pixel wide—no thicker under any circumstances. \n" +
-//                "Ensure The dividing line between frames must be black." +
-//                "Ensure the subject is centered in each frame\n" +
-//                "Ensure each frame is from a side view\n" +
-//                "Ensure each frame is 512x512 in size \n"+
-//                "Ensure the subject is always facing to the right\n" +
-//                "Output ALL 4 FRAMES from the same seed\n" +
                 "RULES\n" +
-                "Take a deep breath and read each rule carefully, ensuring that you apply every single rule without missing any.\n" +
+                "Ensure there are exactly 4 frames—no more, no less. \n" +
+                "Ensure The divider between frames must be exactly 1 pixel wide—no thicker under any circumstances. \n" +
+                "Ensure The dividing line between frames must be black." +
                 "Ensure the subject is centered in each frame\n" +
                 "Ensure each frame is from a side view\n" +
-                "Ensure the subject must not go outside the frame.\nThere must be only one subject per frame." +
-                "Do not include any letters or numbers in each frame.\n" +
-                "Ensure there is no gap between each frame.\n" +
+                "Ensure each frame is 512x512 in size \n"+
                 "Ensure the subject is always facing to the right\n" +
-                "Output ALL 4 FRAMES from the same seed\n\n";
+                "Output ALL 4 FRAMES from the same seed\n";
+//                "RULES\n" +
+//                "Take a deep breath and read each rule carefully, ensuring that you apply every single rule without missing any.\n" +
+//                "Ensure the subject is centered in each frame\n" +
+//                "Ensure each frame is from a side view\n" +
+//                "Ensure the subject must not go outside the frame.\nThere must be only one subject per frame." +
+//                "Do not include any letters or numbers in each frame.\n" +
+//                "Ensure there is no gap between each frame.\n" +
+//                "Ensure the subject is always facing to the right\n" +
+//                "Output ALL 4 FRAMES from the same seed\n\n";
         String descriptionOrder = prompt
-//                + "당신은 30년 경력의 전문 에니메이터입니다. \n" +
-//                "당신은 의뢰인들에게 만족스러운 gif이미지를 제공하기 위해 최선을 다해 노력합니다.\n" +
-//                "당신은 motion 1,2,3,4 이미지가 순차적으로 보여지는 에니메이션 gif를 만들려고 합니다.\n" +
-//                "\n" +
-//                "위의 미션 내용을 반드시 참고하여 \n" +
-//                "motion 1 description, motion 2 description, motion 3 description, motion 4 description 에 들어갈 내용을 아주 자세하게 기획해주세요.";
-                +"You are a professional animator with 30 years of experience.\n" +
-                "You always strive to provide clients with satisfying GIF images.\n" +
-                "You are planning to create an animated GIF where motion 1, 2, 3, and 4 images are displayed sequentially.\n" +
+                + "당신은 30년 경력의 전문 에니메이터입니다. \n" +
+                "당신은 의뢰인들에게 만족스러운 gif이미지를 제공하기 위해 최선을 다해 노력합니다.\n" +
+                "당신은 motion 1,2,3,4 이미지가 순차적으로 보여지는 에니메이션 gif를 만들려고 합니다.\n" +
                 "\n" +
-                "Please refer carefully to the mission details above and plan detailed descriptions for motion 1, motion 2, motion 3, and motion 4.";
+                "위의 미션 내용을 반드시 참고하여 \n" +
+                "motion 1 description, motion 2 description, motion 3 description, motion 4 description 에 들어갈 내용을 아주 자세하게 기획해주세요.";
+//                +"You are a professional animator with 30 years of experience.\n" +
+//                "You always strive to provide clients with satisfying GIF images.\n" +
+//                "You are planning to create an animated GIF where motion 1, 2, 3, and 4 images are displayed sequentially.\n" +
+//                "\n" +
+//                "Please refer carefully to the mission details above and plan detailed descriptions for motion 1, motion 2, motion 3, and motion 4.";
         String motionDescription = motionDescriptionService.generateMessage(descriptionOrder);
 
         System.out.println(motionDescription);
@@ -132,9 +132,9 @@ public class AniGIFMakeSourceImageService {
 
     private OkHttpClient createHttpClient() {
         return new OkHttpClient.Builder()
-                .connectTimeout(40, TimeUnit.SECONDS)
-                .readTimeout(40, TimeUnit.SECONDS)
-                .writeTimeout(40, TimeUnit.SECONDS)
+                .connectTimeout(120, TimeUnit.SECONDS)
+                .readTimeout(120, TimeUnit.SECONDS)
+                .writeTimeout(120, TimeUnit.SECONDS)
                 .build();
     }
 
