@@ -33,12 +33,20 @@ public class PopGIFService {  // 전혀다른 이미지 이어붙이는 서비�
     public String generateAnimatedGIF(GIFDTO gifdto) {
 
         String message = gifdto.getMessage();
-        //String concept = gifdto.getConcept();
-        String prompt = "당신은 30년경력의 유능한 GIF 그래픽 디자이너입니다.\n"
-                + "다음 문자내용과 반드시 관련된 GIF 이미지를 만들어 주세요.\n"
+        String concept = gifdto.getConcept();
+        String prompt = "당신은 30년경력의 유능한 그래픽 디자이너입니다.\n" +
+                "\n" +
+                "당신은 의뢰인들의 이미지 만족도를 높이기 위해 끊임없이 노력합니다.\n" +
+                "\n" +
+                "다음 문자내용과 반드시 관련된 이미지를 만들어 주세요.\n" +
+                "\n" +
+                "관련이 없는 이미지 생성은 절대 안됩니다.\n" +
+                "절대로, 절대로 이미지에 글자가 있으면 안됩니다. 반드시 이미지를 생성하기 전 영어, 한글, 중국어 등 하나의 글자라도 절대 이미지에 포함시키면 안됩니다."
+//                "당신은 30년경력의 유능한 GIF 그래픽 디자이너입니다.\n"
+//                + "다음 문자내용과 반드시 관련된 GIF 이미지를 만들어 주세요.\n"
                 + "======문자내용 ======" + message + "==================\n"
-                //+ "반드시 이 GIF 이미지를 만들 때 " + concept + "컨셉으로 만들어 주세요.\n"
-                + "또한, GIF 이미지에 글자는 절대로 포함하지 마세요. 글자나 아무 문자가 포함된 이미지는 절대 안됩니다.";
+                + "반드시 이 이미지를 만들 때 " + concept + "컨셉으로 만들어 주세요 ";
+                //+ "또한, 이미지에 글자는 절대로 포함하지 마세요. 글자나 아무 텍스트도 이미지에 절대 포함되어선 안됩니다.";
 //        String prompt = "당신은 30년 경력의 유능한 GIF 그래픽 디자이너입니다.\n"
 //                + "항상 동일한 캐릭터와 배경을 유지하면서, 다음 문자내용과 관련된 GIF 이미지를 만들어 주세요.\n"
 //                + "======문자내용 ======" + message + "==================\n"
@@ -60,7 +68,7 @@ public class PopGIFService {  // 전혀다른 이미지 이어붙이는 서비�
                 BufferedImage resizedFrame = resize(frame, width, height);
                 frames.add(resizedFrame); // 메모리에 저장
 
-                String imageUrl2 = generateImage("이전 이미지에서 물체에 약간의 변화를 준 이미지를 한 장 더 만들어 주세요.\n");
+                String imageUrl2 = generateImage(prompt + "방금 생성한 이미지를 참고하여 비슷하게 이미지를 한 장 더 만들어 주세요.\n");
                 frame = downloadImage(imageUrl2);
                 BufferedImage resizedFrame2 = resize(frame, width, height);
                 frames.add(resizedFrame2);
