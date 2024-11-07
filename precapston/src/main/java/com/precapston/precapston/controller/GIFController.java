@@ -86,7 +86,6 @@ public class GIFController {
 
     @PostMapping("/createGIF")
     public GIFResponse createGIF(@RequestBody GIFDTO gifdto) throws IOException {
-
         String imageUrl = "";
 
         // 카테고리에 따라 다른 서비스로 분기
@@ -95,37 +94,31 @@ public class GIFController {
             aniGIFMakeSourceImageService.generateImages(gifdto);  // source.jpg 생성
             aniGIFService.createGif();  // GIF 생성
             imageUrl = "http://localhost:8080/api/images/dest.gif";  // HTTP 경로로 수정
-
         } else if (gifdto.getCategory().equals("팝")) {
             // "팝" 카테고리일 경우
             imageUrl = popGIFService.generateAnimatedGIF(gifdto);
-            imageUrl = "http://localhost:8080/api/images/" + imageUrl;  // HTTP 경로로 수정
-
-        } else if (gifdto.getCategory().equals("확대")) {
-            // "확대" 카테고리일 경우 추가 기능 구현 필요
-            // imageUrl = enlargeGIFService.generateAnimatedGIF(gifdto);
-        } else { // "축소" 카테고리일 경우 추가 기능 구현 필요
-            // imageUrl = ensmallGIFService.generateAnimatedGIF(gifdto);
+            imageUrl = "http://localhost:8080/api/images/animated_image.gif";  // HTTP 경로로 수정
         }
 
-        // JSON 응답 객체로 반환
-        return new GIFResponse(imageUrl); // 이미지 URL을 포함한 GIFResponse 객체 반환
+        // "GIFResponse"를 배열로 반환
+        return new GIFResponse(new String[]{imageUrl}); // 수정된 부분: URL 배열로 반환
     }
 
     // 이미지 URL을 담을 응답 DTO 클래스
     public static class GIFResponse {
-        private String imageUrl;
+        private String[] imageUrl;  // String 배열로 수정
 
-        public GIFResponse(String imageUrl) {
+        public GIFResponse(String[] imageUrl) {
             this.imageUrl = imageUrl;
         }
 
-        public String getImageUrl() {
+        public String[] getImageUrl() {
             return imageUrl;
         }
 
-        public void setImageUrl(String imageUrl) {
+        public void setImageUrl(String[] imageUrl) {
             this.imageUrl = imageUrl;
         }
     }
+
 }
