@@ -115,7 +115,6 @@ public class AniGIFMakeSourceImageService {
 
         int width = 1024;
         int height = 1024;
-
         try {
             // 이미지 생성 및 리사이즈
                 String imageUrl = generateImage(imgPrompt);
