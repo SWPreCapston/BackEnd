@@ -19,8 +19,14 @@ public class MessageController {
     @PostMapping("/send")
     public String sendMessage(@RequestBody MessageDTO messageDTO) {
         try {
-
-            messageService.requestSend(messageDTO.getText(), messageDTO.getImg_path(),messageDTO.getPhone_num());
+            String messageType;
+            if(messageDTO.getImg_path().equals("")){
+                messageType="SMS";
+            }
+            else{
+                messageType="MMS";
+            }
+            messageService.requestSend(messageDTO.getText(), messageDTO.getImg_path(),messageDTO.getPhone_num(),messageType);
             return "메시지 전송 요청이 성공적으로 처리되었습니다.";
         } catch (Exception e) {
             return "메시지 전송 요청 중 오류 발생: " + e.getMessage();
