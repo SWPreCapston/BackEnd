@@ -98,7 +98,12 @@ public class GIFController {
             // "팝" 카테고리일 경우
             imageUrl = popGIFService.generateAnimatedGIF(gifdto);
             imageUrl = "http://localhost:8080/api/images/animated_image.gif";  // HTTP 경로로 수정
+        }else if(gifdto.getCategory().equals("확대")){
+
+        }else{ //축소
+
         }
+
 
         // "GIFResponse"를 배열로 반환
         return new GIFResponse(new String[]{imageUrl}); // 수정된 부분: URL 배열로 반환
