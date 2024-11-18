@@ -83,6 +83,11 @@ public class GIFController {
     private AniGIFService aniGIFService; // 애니
     @Autowired
     private AniGIFMakeSourceImageService aniGIFMakeSourceImageService; // 애니이미지의 source.jpg 만드는 서비스
+    @Autowired
+    private EnlargeGIFService enlargeGIFService; //확대
+    @Autowired
+    private EnsmallGIFService ensmallGIFService; //확대
+
 
     @PostMapping("/createGIF")
     public GIFResponse createGIF(@RequestBody GIFDTO gifdto) throws IOException {
@@ -99,9 +104,13 @@ public class GIFController {
             imageUrl = popGIFService.generateAnimatedGIF(gifdto);
             imageUrl = "http://localhost:8080/api/images/animated_image.gif";  // HTTP 경로로 수정
         }else if(gifdto.getCategory().equals("확대")){
-
-        }else{ //축소
-
+            // "확대" 카테고리일 경우
+            imageUrl = enlargeGIFService.generateEnlargedGIF(gifdto);
+            imageUrl = "http://localhost:8080/api/images/enlarged_image.gif"; // HTTP 경로로 수정
+        }else{
+            // "축소" 카테고리일 경우
+            imageUrl = ensmallGIFService.generateEnsmalledGIF(gifdto);
+            imageUrl = "http://localhost:8080/api/images/ensmalled_image.gif"; // HTTP 경로로 수정
         }
 
 
