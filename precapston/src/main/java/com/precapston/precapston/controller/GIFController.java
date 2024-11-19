@@ -127,7 +127,7 @@ public GIFResponse createGIF(@RequestBody GIFDTO gifdto) throws IOException {
             final int index = i;
             executorService.submit(() -> {
                 try {
-                    ensmallGIFService.generateEnsmalledGIF(gifdto);
+                    ensmallGIFService.generateEnsmalledGIF(gifdto,index);
                     imageUrls[index] = "http://localhost:8080/api/images/ensmalled_image" + index + ".gif"; // HTTP 경로
                 } catch (Exception e) {
                     e.printStackTrace();
