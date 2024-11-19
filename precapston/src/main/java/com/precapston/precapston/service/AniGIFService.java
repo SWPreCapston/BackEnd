@@ -19,8 +19,8 @@ public class AniGIFService {
 
     public String createGif() { // 4개창문형으로 된 source.jpg 이미지경로, 결과 gif 저장될 dest 이미지 경로 주면
                                 //dest에 만들어짐
-        String inputImagePath = "C:\\Users\\USER\\Desktop\\precapImage\\source.jpg"; // 입력 이미지 파일 경로
-        String outputGifPath = "C:\\Users\\USER\\Desktop\\precapImage\\dest.gif";    // 생성될 GIF 파일 경로
+        String inputImagePath = "C:\\Users\\wndhk\\aitest\\source.jpg"; // 입력 이미지 파일 경로
+        String outputGifPath = "C:\\Users\\wndhk\\aitest\\dest.gif";    // 생성될 GIF 파일 경로
 
         try {
             BufferedImage spriteSheet = ImageIO.read(new File(inputImagePath));
