@@ -37,9 +37,7 @@ public class AniGIFMakeSourceImageService {
     //private static final String API_KEY = ""; // 실제 API 키로 교체하세요
     private static final String API_URL = "https://api.openai.com/v1/images/generations";
 
-    public List<String> generateImages(GIFDTO gifDTO) throws IOException {
-
-
+    public List<String> generateImages(GIFDTO gifDTO,int i) throws IOException {
         String who = gifDTO.getWho();
         String move = gifDTO.getMove();
         String where = gifDTO.getWhere();
@@ -111,6 +109,8 @@ public class AniGIFMakeSourceImageService {
 
 
         String outputPath = "C:\\Users\\goeka\\Desktop\\precapImage\\";
+        String imageFileName = "source"+i+".jpg";
+
         List<String> imageUrls = new ArrayList<>(); // 리스트 초기화
 
         int width = 1024;
@@ -118,7 +118,7 @@ public class AniGIFMakeSourceImageService {
         try {
             // 이미지 생성 및 리사이즈
                 String imageUrl = generateImage(imgPrompt);
-                File savedImage = saveImage(imageUrl,outputPath + "source.jpg");
+                File savedImage = saveImage(imageUrl,outputPath + imageFileName); //여기 index적용된 이미지이름인 imageFileName 넣음
                 processAndResizeImage(savedImage, outputPath, width, height);
                 System.out.println("Image saved as: " + savedImage.getName());
                 imageUrls.add(outputPath + "source.jpg");

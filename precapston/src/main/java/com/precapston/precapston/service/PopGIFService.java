@@ -30,7 +30,7 @@ public class PopGIFService {  // 전혀다른 이미지 이어붙이는 서비�
     private String API_KEY; // 실제 API 키로 교체하세요
     private static final String API_URL = "https://api.openai.com/v1/images/generations";
 
-    public String generateAnimatedGIF(GIFDTO gifdto) {
+    public String generateAnimatedGIF(GIFDTO gifdto,int i) {
 
         String message = gifdto.getMessage();
         String concept = gifdto.getConcept();
@@ -54,7 +54,7 @@ public class PopGIFService {  // 전혀다른 이미지 이어붙이는 서비�
 //                + "캐릭터가 조금씩 다른 자세나 표정을 보이며 움직이는 프레임을 생성해 주세요. 단, 이미지에 글자는 포함하지 마세요.";
 
 
-        String outputPath = "C:\\Users\\goeka\\Desktop\\precapImage\\animated_image.gif";
+        String outputPath = "C:\\Users\\goeka\\Desktop\\precapImage\\animated_image"+i+".gif";
         int width = 740;
         int height = 960;
         int frameCount = 2; // 프레임 수

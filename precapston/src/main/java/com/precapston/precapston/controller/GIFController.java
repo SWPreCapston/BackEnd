@@ -87,8 +87,8 @@ public GIFResponse createGIF(@RequestBody GIFDTO gifdto) throws IOException {
             final int index = i; // 람다식에서 사용하기 위해 final로 선언
             executorService.submit(() -> {
                 try {
-                    aniGIFMakeSourceImageService.generateImages(gifdto); // source.jpg 생성
-                    aniGIFService.createGif(); // GIF 생성
+                    aniGIFMakeSourceImageService.generateImages(gifdto,index); // source.jpg 생성
+                    aniGIFService.createGif(index); // GIF 생성
                     imageUrls[index] = "http://localhost:8080/api/images/dest" + index + ".gif"; // HTTP 경로
                 } catch (Exception e) {
                     e.printStackTrace(); // 예외 처리
@@ -101,7 +101,7 @@ public GIFResponse createGIF(@RequestBody GIFDTO gifdto) throws IOException {
             final int index = i;
             executorService.submit(() -> {
                 try {
-                    popGIFService.generateAnimatedGIF(gifdto);
+                    popGIFService.generateAnimatedGIF(gifdto,index);
                     imageUrls[index] = "http://localhost:8080/api/images/animated_image" + index + ".gif"; // HTTP 경로
                 } catch (Exception e) {
                     e.printStackTrace();
