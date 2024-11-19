@@ -33,6 +33,12 @@ public class ImageController {
     public List<String> createImage(@RequestBody ImageDTO imageDTO) {
         String message = imageDTO.getMessage();
 
+        System.out.println("Received ImageDTO:");
+        System.out.println("Message: " + imageDTO.getMessage());
+        System.out.println("Concept: " + imageDTO.getConcept());
+        System.out.println("Image Base64: " + imageDTO.getBase64Image() );
+
+
         // 이미지 URL 생성 및 반환
         List<String> imageUrls = imageService.generateImages(imageDTO);
         return imageUrls.stream()
