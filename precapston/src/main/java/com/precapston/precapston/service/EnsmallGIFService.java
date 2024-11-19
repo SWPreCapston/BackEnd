@@ -50,7 +50,7 @@ public class EnsmallGIFService {
                 "또한, 이미지에 글자는 절대로, 절대로 안됩니다. 반드시 이미지를 생성하기 전 영어, 한글, 중국어 등 하나의 글자라도 절대 이미지에 포함시키면 안됩니다."+
                 "또한, 아래의 이미지를 참고하여 비슷한 이미지를 생성해주세요.\n";
 
-        String outputPath = "C:\\Users\\goeka\\Desktop\\precapImage\\ensmalled_image"+i+".gif";
+        String outputPath = "C:\\Users\\USER\\Desktop\\precapImage\\ensmalled_image"+i+".gif";
         int initialWidth = 700;
         int initialHeight = 700;
         int frameCount = 4; // Number of frames in the GIF
