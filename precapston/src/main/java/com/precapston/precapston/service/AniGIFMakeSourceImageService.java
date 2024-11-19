@@ -37,9 +37,7 @@ public class AniGIFMakeSourceImageService {
     //private static final String API_KEY = ""; // 실제 API 키로 교체하세요
     private static final String API_URL = "https://api.openai.com/v1/images/generations";
 
-    public List<String> generateImages(GIFDTO gifDTO) throws IOException {
-
-
+    public List<String> generateImages(GIFDTO gifDTO,int i) throws IOException {
         String who = gifDTO.getWho();
         String move = gifDTO.getMove();
         String where = gifDTO.getWhere();
@@ -110,7 +108,9 @@ public class AniGIFMakeSourceImageService {
 //                "남성이 점프에서 착지한 후 다시 준비 자세로 돌아갑니다. 두 다리는 약간 벌어져 안정된 자세를 취하며, 양팔은 자연스럽게 늘어뜨려 춤의 한 사이클이 마무리됨을 나타냅니다. 모션 블러를 최소화해 안정감을 부여하며, 다음 동작으로 이어질 듯한 여운을 남깁니다.";
 
 
-        String outputPath = "C:\\Users\\USER\\Desktop\\precapImage\\";
+        String outputPath = "C:\\Users\\goeka\\Desktop\\precapImage\\";
+        String imageFileName = "source"+i+".jpg";
+
         List<String> imageUrls = new ArrayList<>(); // 리스트 초기화
 
         int width = 1024;
@@ -118,7 +118,7 @@ public class AniGIFMakeSourceImageService {
         try {
             // 이미지 생성 및 리사이즈
                 String imageUrl = generateImage(imgPrompt);
-                File savedImage = saveImage(imageUrl,outputPath + "source.jpg");
+                File savedImage = saveImage(imageUrl,outputPath + imageFileName); //여기 index적용된 이미지이름인 imageFileName 넣음
                 processAndResizeImage(savedImage, outputPath, width, height);
                 System.out.println("Image saved as: " + savedImage.getName());
                 imageUrls.add(outputPath + "source.jpg");
