@@ -26,7 +26,7 @@ public class EnlargeGIFService {
     private String API_KEY;
     private static final String API_URL = "https://api.openai.com/v1/images/generations";
 
-    public String generateEnlargedGIF(GIFDTO gifdto) {
+    public String generateEnlargedGIF(GIFDTO gifdto, int i) {
         String message = gifdto.getMessage();
         String concept = gifdto.getConcept();
 
@@ -51,11 +51,11 @@ public class EnlargeGIFService {
                 "또한, 이미지에 글자는 절대로, 절대로 안됩니다. 반드시 이미지를 생성하기 전 영어, 한글, 중국어 등 하나의 글자라도 절대 이미지에 포함시키면 안됩니다."+
                 "또한, 아래의 이미지를 참고하여 비슷한 이미지를 생성해주세요.\n";
 
-        String outputPath = "C:\\Users\\goeka\\Desktop\\precapImage\\enlarged_image.gif";
+        String outputPath = "C:\\Users\\goeka\\Desktop\\precapImage\\enlarged_image"+i+".gif";
         int initialWidth = 700;  //초기 프레임의 크기!
         int initialHeight = 700; //초기 프레임의 크기
-        int frameCount = 4; // GIF 총 프레임 수
-        int enlargementStep = 100; // 한 프레임 당 커지는 정도
+        int frameCount = 6; // GIF 총 프레임 수
+        int enlargementStep = 50; // 한 프레임 당 커지는 정도
 
         try {
             // 1. 초기 이미지 생성함.
@@ -117,20 +117,6 @@ public class EnlargeGIFService {
         }
     }
 
-//    private List<BufferedImage> createEnlargingFrames(BufferedImage image, int initialWidth, int initialHeight, int frameCount, int step) {
-//        List<BufferedImage> frames = new ArrayList<>();
-//        int width = initialWidth;
-//        int height = initialHeight;
-//
-//        for (int i = 0; i < frameCount; i++) {
-//            BufferedImage resizedImage = resize(image, width, height);
-//            frames.add(resizedImage);
-//            width += step;
-//            height += step;
-//        }
-//
-//        return frames;
-//    }
 private List<BufferedImage> createEnlargingFrames(BufferedImage image, int initialWidth, int initialHeight, int frameCount, int step) {
     List<BufferedImage> frames = new ArrayList<>();
 
@@ -168,47 +154,6 @@ private List<BufferedImage> createEnlargingFrames(BufferedImage image, int initi
 
     return frames;
 }
-
-
-
-
-
-
-//private List<BufferedImage> createEnlargingFrames(BufferedImage image, int initialWidth, int initialHeight, int frameCount, int step) {
-//    List<BufferedImage> frames = new ArrayList<>();
-//
-//    int originalWidth = image.getWidth();
-//    int originalHeight = image.getHeight();
-//
-//    int width = initialWidth;
-//    int height = initialHeight;
-//
-//    for (int i = 0; i < frameCount; i++) {
-//        // 중심점 계산
-//        int centerX = originalWidth / 2;
-//        int centerY = originalHeight / 2;
-//
-//        // 잘라낼 영역 계산 (이미지를 중앙 기준으로)
-//        int cropX = Math.max(0, centerX - width / 2);
-//        int cropY = Math.max(0, centerY - height / 2);
-//        int cropWidth = Math.min(width, originalWidth - cropX);
-//        int cropHeight = Math.min(height, originalHeight - cropY);
-//
-//        // 이미지 잘라내기
-//        BufferedImage croppedImage = image.getSubimage(cropX, cropY, cropWidth, cropHeight);
-//
-//        // 잘라낸 이미지를 GIF 크기로 리사이즈
-//        BufferedImage resizedImage = resize(croppedImage, initialWidth, initialHeight);
-//        frames.add(resizedImage);
-//
-//        // 다음 프레임을 위해 크기 증가
-//        width += step;
-//        height += step;
-//    }
-//
-//    return frames;
-//}
-
 
     private BufferedImage resize(BufferedImage inputImage, int width, int height) {
         BufferedImage outputImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
