@@ -42,7 +42,7 @@ public class ImageService {
         String concept = imageDTO.getConcept();     // 컨셉
         String group = imageDTO.getGroup();         // 그룹
         String situation = imageDTO.getSituation(); // 상황
-        String imageBase64 = imageDTO.getImageBase64();
+        String imageBase64 = imageDTO.getBase64Image();
 
         //String prompt = message + " 이미지를 생성해주는데,다음 내용을 참고해줘"
         //        + categoryRepository.getCategoryContent(concept) + " ";
