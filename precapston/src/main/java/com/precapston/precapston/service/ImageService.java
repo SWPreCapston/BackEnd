@@ -131,7 +131,7 @@ public class ImageService {
                         +"RULE 4 : 이미지에 글자는 절대로, 절대로 포함시키면 안됩니다. 반드시 영어, 한글, 중국어 등 어떤 글자라도 절대 이미지에 포함시키지 말아주세요.";
 
 
-        String outputPath = "C:\\Users\\USER\\Desktop\\precapImage\\";
+        String outputPath = "/home/ec2-user/app/";
         List<String> imageUrls = new ArrayList<>(); // 리스트 초기화
 
         int width = 740;

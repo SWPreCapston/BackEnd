@@ -68,7 +68,7 @@ public class PopGIFService {  // 전혀다른 이미지 이어붙이는 서비�
                         +"RULE 3 : 반드시 다음 단체와 관련된 이미지를 만들어 주세요." + group+"\n"
                         +"RULE 4 : 이미지에 글자는 절대로, 절대로 포함시키면 안됩니다. 반드시 영어, 한글, 중국어 등 어떤 글자라도 절대 이미지에 포함시키지 말아주세요.";
 
-        String outputPath = "C:\\Users\\USER\\Desktop\\precapImage\\animated_image"+i+".gif";
+        String outputPath = "/home/ec2-user/app/animated_image"+i+".gif";
         int width = 740;
         int height = 960;
         int frameCount = 2; // 프레임 수

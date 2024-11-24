@@ -53,7 +53,7 @@ public class TextService {
         StringBuilder promptBuilder = new StringBuilder();
         promptBuilder.append("발송 목적 및 내용: ").append(textDTO.getPurposeContent()).append("\n");
         promptBuilder.append("주요 키워드: ").append(String.join(", ", textDTO.getKeywords())).append("\n");
-        promptBuilder.append("이 정보를 바탕으로 메시지를 생성해 주세요.");
+        promptBuilder.append("이 정보를 바탕으로 메시지를 생성해 주세요. 메시지에는 특수문자가 절대로 포함되어선 안됩니다.");
         return promptBuilder.toString();
     }
 

@@ -19,7 +19,7 @@ import java.util.concurrent.Executors;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://13.239.36.154:3000")
 public class GIFController {
 
     @Autowired
@@ -55,7 +55,7 @@ public class GIFController {
                     try {
                         aniGIFMakeSourceImageService.generateImages(gifdto, index);
                         aniGIFService.createGif(index);
-                        gifUrls[index] = "http://localhost:8080/api/gifs/dest" + index + ".gif";
+                        gifUrls[index] = "http://13.239.36.154:8080/api/gifs/dest" + index + ".gif";
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -67,7 +67,7 @@ public class GIFController {
                 executorService.submit(() -> {
                     try {
                         popGIFService.generateAnimatedGIF(gifdto, index);
-                        gifUrls[index] = "http://localhost:8080/api/gifs/animated_image" + index + ".gif";
+                        gifUrls[index] = "http://13.239.36.154:8080/api/gifs/animated_image" + index + ".gif";
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -79,7 +79,7 @@ public class GIFController {
                 executorService.submit(() -> {
                     try {
                         enlargeGIFService.generateEnlargedGIF(gifdto, index);
-                        gifUrls[index] = "http://localhost:8080/api/gifs/enlarged_image" + index + ".gif";
+                        gifUrls[index] = "http://13.239.36.154:8080/api/gifs/enlarged_image" + index + ".gif";
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -91,7 +91,7 @@ public class GIFController {
                 executorService.submit(() -> {
                     try {
                         ensmallGIFService.generateEnsmalledGIF(gifdto, index);
-                        gifUrls[index] = "http://localhost:8080/api/gifs/ensmalled_image" + index + ".gif";
+                        gifUrls[index] = "http://13.239.36.154:8080/api/gifs/ensmalled_image" + index + ".gif";
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

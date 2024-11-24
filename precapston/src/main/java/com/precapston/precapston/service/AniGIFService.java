@@ -19,8 +19,8 @@ public class AniGIFService {
 
     public String createGif(int index) { // 4개창문형으로 된 source.jpg 이미지경로, 결과 gif 저장될 dest 이미지 경로 주면
                                 //dest에 만들어짐
-        String inputImagePath = "C:\\Users\\USER\\Desktop\\precapImage\\source"+index+".jpg"; // 입력 이미지 파일 경로
-        String outputGifPath = "C:\\Users\\USER\\Desktop\\precapImage\\dest"+index+".gif";    // 생성될 GIF 파일 경로
+        String inputImagePath = "/home/ec2-user/app/source"+index+".jpg"; // 입력 이미지 파일 경로
+        String outputGifPath = "/home/ec2-user/app/dest"+index+".gif";    // 생성될 GIF 파일 경로
 
         try {
             BufferedImage spriteSheet = ImageIO.read(new File(inputImagePath));
@@ -40,10 +40,10 @@ public class AniGIFService {
             gifWriter.prepareWriteSequence(null);
 
             // 프레임 순서를 반복하여 애니메이션 완성
-            int loopCount = 128;
+            int loopCount = 12;
             for (int i = 0; i < loopCount; i++) {
                 for (BufferedImage frame : List.of(frames.get(0), frames.get(2), frames.get(1), frames.get(3))) {
-                    addFrameToGif(gifWriter, frame, 100); // 100ms 딜레이
+                    addFrameToGif(gifWriter, frame, 200); // 100ms 딜레이
                 }
             }
 
