@@ -20,13 +20,12 @@ public class MessageService {
 
     @Value("${ppurio}")
     private String API_KEY;
-    private static final String PPURIO_ACCOUNT = "woojj1254577";	//santoragi32
+    private static final String PPURIO_ACCOUNT = "woojj1254577";   //santoragi32
     private static final String FROM = "01072548535";
-//    private static final String FILE_PATH = "D:\\24-2\\SWFreeCapston_8\\Back\\precapston\\src\\main\\resources\\images\\testimg.jpg";
     private static final String URI = "https://message.ppurio.com";
 
-    public void requestSend(String message, String imagePath, List<String> phone_num) throws IOException {
-        Map<String, Object> sendParams = createSendParams(message, imagePath, phone_num);
+    public void requestSend(String message, String imagePath, List<String> phone_num, String messageType) throws IOException {
+        Map<String, Object> sendParams = createSendParams(message, imagePath, phone_num, messageType);
         String basicAuthorization = Base64.getEncoder().encodeToString((PPURIO_ACCOUNT + ":" + API_KEY).getBytes());
 
         System.out.println("basicAuthorization: "+ basicAuthorization);
@@ -41,7 +40,7 @@ public class MessageService {
         System.out.println("token: "+ token);
 
         // 발송 요청
-        Map<String, Object> sendResponse = send(URI, token,message,imagePath,phone_num);
+        Map<String, Object> sendResponse = send(URI, token,message,imagePath,phone_num,messageType);
         if (sendResponse != null) {
             System.out.println("문자 발송 요청 성공: " + sendResponse.toString());
         } else {
@@ -93,7 +92,7 @@ public class MessageService {
      * @param accessToken 토큰 발급 API를 통해 발급 받은 Access Token, 유효기간이 1일이기 때문에 만료될 경우 재발급 필요
      * @return Map
      */
-    private Map<String, Object> send(String baseUri, String accessToken,String message, String imagePath, List<String> phone_num) {
+    private Map<String, Object> send(String baseUri, String accessToken,String message, String imagePath, List<String> phone_num,String messageType) {
         HttpURLConnection conn = null;
         try {
             // 요청 파라미터 생성
@@ -101,7 +100,7 @@ public class MessageService {
             MessageRequest messageRequest = new MessageRequest(baseUri + "/v1/message", bearerAuthorization);
 
             // 요청 객체 생성
-            conn = createConnection(messageRequest, createSendParams(message,imagePath,phone_num));// sms 발송 테스트
+            conn = createConnection(messageRequest, createSendParams(message,imagePath,phone_num,messageType));// sms 발송 테스트
 
             // 응답 데이터 객체 변환
             return getResponseBody(conn);
@@ -200,15 +199,17 @@ public class MessageService {
         });
     }
 
-    private Map<String, Object> createSendParams(String message, String imagePath, List<String> phone_num) throws IOException {
+    private Map<String, Object> createSendParams(String message, String imagePath, List<String> phone_num,String messageType) throws IOException {
         HashMap<String, Object> params = new HashMap<>();
         params.put("account", PPURIO_ACCOUNT);
-        params.put("messageType", "MMS");
+        params.put("messageType", messageType);
         params.put("from", FROM);
         params.put("content", message); // 사용자가 입력한 메시지 적용
         params.put("duplicateFlag", "Y");
         params.put("rejectType", "AD"); // 광고성 문자 수신거부 설정, 비활성화할 경우 해당 파라미터 제외
-        params.put("files", List.of(createFileParams(imagePath))); // 사용자가 입력한 이미지 경로 적용
+        if(messageType.equals("MMS")) {
+            params.put("files", List.of(createFileParams(imagePath))); // 사용자가 입력한 이미지 경로 적용
+        }
         // phone_num이 null이면 빈 리스트로 초기화
         if (phone_num == null) {
             phone_num = new ArrayList<>();
@@ -226,7 +227,7 @@ public class MessageService {
         return params;
 
     }
-//    private Map<String, Object> createSendTestParams() throws IOException {
+    //    private Map<String, Object> createSendTestParams() throws IOException {
 //
 //        HashMap<String, Object> params = new HashMap<>();
 //        params.put("account", PPURIO_ACCOUNT);

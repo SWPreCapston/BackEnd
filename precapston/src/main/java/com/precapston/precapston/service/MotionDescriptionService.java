@@ -66,7 +66,7 @@ public class MotionDescriptionService {
         private List<Message> messages;
 
         public OpenAIRequest(String prompt) {
-            this.model = "gpt-4";
+            this.model = "gpt-3.5-turbo";
             this.messages = new ArrayList<>();
             this.messages.add(new Message("user", prompt));
         }

@@ -119,7 +119,7 @@ public class AniGIFMakeSourceImageService {
             // 이미지 생성 및 리사이즈
                 String imageUrl = generateImage(imgPrompt);
                 File savedImage = saveImage(imageUrl,outputPath + imageFileName); //여기 index적용된 이미지이름인 imageFileName 넣음
-                processAndResizeImage(savedImage, outputPath, width, height);
+//                processAndResizeImage(savedImage, outputPath, width, height);
                 System.out.println("Image saved as: " + savedImage.getName());
                 imageUrls.add(outputPath + "source.jpg");
         } catch (IOException e) {

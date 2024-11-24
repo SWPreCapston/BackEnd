@@ -4,7 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.precapston.precapston.dto.GIFDTO;
 import com.precapston.precapston.dto.GifSequenceWriter;
+import com.precapston.precapston.repository.CategoryRepository;
 import okhttp3.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -25,30 +27,46 @@ public class EnsmallGIFService {
     private String API_KEY;
     private static final String API_URL = "https://api.openai.com/v1/images/generations";
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     public String generateEnsmalledGIF(GIFDTO gifdto, int i) {
         String message = gifdto.getMessage();
         String concept = gifdto.getConcept();
+        String group = gifdto.getGroup();
 
-        //String prompt = "Create an image based on the following description: " + message;
-        String prompt = "당신은 30년경력의 유능한 그래픽 디자이너입니다.\n" +
-                "\n" +
-                "당신은 의뢰인들의 이미지 만족도를 높이기 위해 끊임없이 노력합니다.\n" +
-                "\n" +
-                "다음 문자내용과 반드시 관련된 이미지를 만들어 주세요.\n" +
-                "\n" +
-                "관련이 없는 이미지 생성은 절대 안됩니다.\n" +
-                "\n" +
-                "======문자내용 ======" +
-                message +
-                "==================\n" +
-                "\n" +
-                "또한 반드시 이 이미지를 만들 때 " + concept + "컨셉으로 만들어 주세요.\n" +
-                "\n" +
-                //"아래는 "+ concept +"컨셉에 대한 자세한 설명입니다. 반드시 이 설명을 참고하여(설명대로) 이미지를 생성해주세요.\n"
-                //+ categoryRepository.getCategoryContent(concept)
-                //+"\n"
-                "또한, 이미지에 글자는 절대로, 절대로 안됩니다. 반드시 이미지를 생성하기 전 영어, 한글, 중국어 등 하나의 글자라도 절대 이미지에 포함시키면 안됩니다."+
-                "또한, 아래의 이미지를 참고하여 비슷한 이미지를 생성해주세요.\n";
+//        String prompt = "당신은 30년경력의 유능한 그래픽 디자이너입니다.\n" +
+//                "\n" +
+//                "당신은 의뢰인들의 이미지 만족도를 높이기 위해 끊임없이 노력합니다.\n" +
+//                "\n" +
+//                "다음 문자내용과 반드시 관련된 이미지를 만들어 주세요.\n" +
+//                "\n" +
+//                "관련이 없는 이미지 생성은 절대 안됩니다.\n" +
+//                "\n" +
+//                "======문자내용 ======" +
+//                message +
+//                "==================\n" +
+//                "\n" +
+//                "또한 반드시 이 이미지를 만들 때 " + concept + "컨셉으로 만들어 주세요.\n" +
+//                "\n" +
+//                //"아래는 "+ concept +"컨셉에 대한 자세한 설명입니다. 반드시 이 설명을 참고하여(설명대로) 이미지를 생성해주세요.\n"
+//                //+ categoryRepository.getCategoryContent(concept)
+//                //+"\n"
+//                "또한, 이미지에 글자는 절대로, 절대로 안됩니다. 반드시 이미지를 생성하기 전 영어, 한글, 중국어 등 하나의 글자라도 절대 이미지에 포함시키면 안됩니다."+
+//                "또한, 아래의 이미지를 참고하여 비슷한 이미지를 생성해주세요.\n";
+        String prompt =
+                "당신은 30년경력의 유능한 그래픽 디자이너입니다.\n" +
+                        "당신은 의뢰인들의 이미지 만족도를 높이기 위해 끊임없이 노력합니다.\n" +
+                        "반드시 아래의 RULE 에 적힌 요구사항을 만족하는 이미지를 생성해주세요.\n" +
+                        "RULE 1 : 반드시 다음 문자내용과 관련된 이미지를 만들어 주세요. 관련이 없는 이미지 생성은 절대 안됩니다.\n" +
+                        "======문자내용======" +
+                        message +
+                        "==================\n" +
+                        "RULE 2 : 이 이미지를 만들 때 " + concept + "컨셉으로 만들어 주세요.\n" +
+                        "아래는 "+ concept + "컨셉에 대한 자세한 설명입니다. 이 설명을 참고하여 이미지를 생성해주세요.\n"
+                        + categoryRepository.getCategoryContent(concept)+"\n"
+                        +"RULE 3 : 반드시 다음 단체와 관련된 이미지를 만들어 주세요." + group+"\n"
+                        +"RULE 4 : 이미지에 글자는 절대로, 절대로 포함시키면 안됩니다. 반드시 영어, 한글, 중국어 등 어떤 글자라도 절대 이미지에 포함시키지 말아주세요.";
 
         String outputPath = "C:\\Users\\USER\\Desktop\\precapImage\\ensmalled_image"+i+".gif";
         int initialWidth = 700;
