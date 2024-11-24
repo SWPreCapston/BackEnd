@@ -118,7 +118,7 @@ public class ImageService {
         }
 
 
-        String outputPath = "";
+        String outputPath = "/home/ec2-user/app/";
         List<String> imageUrls = new ArrayList<>(); // 리스트 초기화
 
         int width = 740;

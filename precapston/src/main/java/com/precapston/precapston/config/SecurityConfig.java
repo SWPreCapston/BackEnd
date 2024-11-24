@@ -92,8 +92,8 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:8080")); // 허용할 Origin
-        configuration.setAllowedOrigins(List.of("http://localhost:3000")); // React 앱의 주소로 수정
+        configuration.setAllowedOrigins(List.of("http://13.239.36.154:8080")); // 허용할 Origin
+        configuration.setAllowedOrigins(List.of("http://13.239.36.154:3000")); // React 앱의 주소로 수정
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);

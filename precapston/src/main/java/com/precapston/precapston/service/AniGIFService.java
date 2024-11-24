@@ -29,7 +29,8 @@ public class AniGIFService {
             // 각 프레임을 추출하여 리스트에 저장
             List<BufferedImage> frames = new ArrayList<>();
             frames.add(spriteSheet.getSubimage(0, 0, frameSize, frameSize));             // Frame 1: Top Left
-            frames.add(spriteSheet.getSubimage(0, frameSize, frameSize, frameSize));      // Frame 3: Bottom Left
+            frames.add(spriteSheet.getSubimage(0, frameSize, frameSize, frameSize
+            ));      // Frame 3: Bottom Left
             frames.add(spriteSheet.getSubimage(frameSize, 0, frameSize, frameSize));      // Frame 2: Top Right
             frames.add(spriteSheet.getSubimage(frameSize, frameSize, frameSize, frameSize)); // Frame 4: Bottom Right
 
@@ -40,7 +41,7 @@ public class AniGIFService {
             gifWriter.prepareWriteSequence(null);
 
             // 프레임 순서를 반복하여 애니메이션 완성
-            int loopCount = 128;
+            int loopCount = 4;  //128
             for (int i = 0; i < loopCount; i++) {
                 for (BufferedImage frame : List.of(frames.get(0), frames.get(2), frames.get(1), frames.get(3))) {
                     addFrameToGif(gifWriter, frame, 100); // 100ms 딜레이
