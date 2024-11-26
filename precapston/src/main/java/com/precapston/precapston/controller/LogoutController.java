@@ -16,7 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api") // 모든 API에 /api 경로를 추가
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://13.239.36.154:3000")
 public class LogoutController {
 
     @GetMapping("/logout")

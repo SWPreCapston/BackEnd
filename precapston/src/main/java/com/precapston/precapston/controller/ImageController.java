@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://13.239.36.154:3000")
 @RequestMapping("/api")
 public class ImageController {
 
@@ -42,7 +42,7 @@ public class ImageController {
         // 이미지 URL 생성 및 반환
         List<String> imageUrls = imageService.generateImages(imageDTO);
         return imageUrls.stream()
-                .map(imageName -> "http://localhost:8080/api/images/" + imageName) // 이미지 URL 형식
+                .map(imageName -> "http://13.239.36.154:8080/api/images/" + imageName) // 이미지 URL 형식
                 .collect(Collectors.toList());
     }
 

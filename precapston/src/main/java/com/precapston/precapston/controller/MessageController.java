@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +26,16 @@ public class MessageController {
     public ResponseEntity<Map<String, String>> sendMessage(@RequestBody MessageDTO messageDTO) {
         Map<String, String> response = new HashMap<>();
         try {
-            String messageType = messageDTO.getImg_path().isEmpty() ? "SMS" : "MMS";
+            String messageType;
+            if (messageDTO.getText().getBytes(StandardCharsets.UTF_8).length <= 90) {
+                messageType="SMS";
+            } else {
+                if(messageDTO.getImg_path().isEmpty()){
+                    messageType="LMS";
+                }else{
+                    messageType="MMS";
+                }
+            }
             messageService.requestSend(messageDTO.getText(), messageDTO.getImg_path(), messageDTO.getPhone_num(), messageType);
             response.put("message", "메시지 전송 요청이 성공적으로 처리되었습니다.");
             return ResponseEntity.ok(response); // JSON 형식으로 반환

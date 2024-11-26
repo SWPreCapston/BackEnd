@@ -130,7 +130,8 @@ public class ImageService {
                         +"RULE 3 : 반드시 다음 단체와 관련된 이미지를 만들어 주세요." + group+"\n"
                         +"RULE 4 : 이미지에 글자는 절대로, 절대로 포함시키면 안됩니다. 반드시 영어, 한글, 중국어 등 어떤 글자라도 절대 이미지에 포함시키지 말아주세요.";
 
-        String outputPath = "/Users/junghun/Desktop/generated_images/";
+
+        String outputPath = "/home/ec2-user/app/";
         List<String> imageUrls = new ArrayList<>(); // 리스트 초기화
 
         int width = 740;
@@ -184,8 +185,6 @@ public class ImageService {
         json.addProperty("prompt", prompt);
         json.addProperty("n", 1);
         json.addProperty("size", "1024x1024");
-
-
 
         RequestBody body = RequestBody.create(json.toString(), MediaType.get("application/json; charset=utf-8"));
         Request request = new Request.Builder()

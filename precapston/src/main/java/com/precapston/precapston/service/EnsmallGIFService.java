@@ -68,7 +68,7 @@ public class EnsmallGIFService {
                         +"RULE 3 : 반드시 다음 단체와 관련된 이미지를 만들어 주세요." + group+"\n"
                         +"RULE 4 : 이미지에 글자는 절대로, 절대로 포함시키면 안됩니다. 반드시 영어, 한글, 중국어 등 어떤 글자라도 절대 이미지에 포함시키지 말아주세요.";
 
-        String outputPath = "C:\\Users\\USER\\Desktop\\precapImage\\ensmalled_image"+i+".gif";
+        String outputPath = "/home/ec2-user/app/ensmalled_image"+i+".gif";
         int initialWidth = 700;
         int initialHeight = 700;
         int frameCount = 4; // Number of frames in the GIF

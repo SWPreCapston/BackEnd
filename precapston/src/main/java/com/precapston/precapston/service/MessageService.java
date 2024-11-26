@@ -208,7 +208,7 @@ public class MessageService {
         params.put("duplicateFlag", "Y");
         params.put("rejectType", "AD"); // 광고성 문자 수신거부 설정, 비활성화할 경우 해당 파라미터 제외
         if(messageType.equals("MMS")) {
-            params.put("files", List.of(createFileParams(imagePath))); // 사용자가 입력한 이미지 경로 적용
+            params.put("files", List.of(createFileParams(imagePath)));
         }
         // phone_num이 null이면 빈 리스트로 초기화
         if (phone_num == null) {
@@ -227,47 +227,9 @@ public class MessageService {
         return params;
 
     }
-    //    private Map<String, Object> createSendTestParams() throws IOException {
-//
-//        HashMap<String, Object> params = new HashMap<>();
-//        params.put("account", PPURIO_ACCOUNT);
-//        params.put("messageType", "MMS");
-//        params.put("from", FROM);
-//        params.put("content", "계정바꿈");
-//        params.put("duplicateFlag", "Y");
-//        params.put("rejectType", "AD"); // 광고성 문자 수신거부 설정, 비활성화할 경우 해당 파라미터 제외
-//        params.put("targetCount", 1);
-//        params.put("targets", List.of(
-//                        Map.of("to", "01072548535",
-//                                "name", "장우진",
-//                                "changeWord", Map.of(
-//                                        "var1", "ppurio api world"))
-//                        // Map.of("to", "01072317472",
-//                        //         "name", "최승재",
-//                        //         "changeWord", Map.of(
-//                        //                 "var1", "ppurio api world")),
-//                        // Map.of("to", "01083808023",
-//                        //         "name", "홍해담",
-//                        //         "changeWord", Map.of(
-//                        //                 "var1", "ppurio api world")),
-//                        // Map.of("to", "01038296128",
-//                        //         "name", "김정훈",
-//                        //         "changeWord", Map.of(
-//                        //                 "var1", "ppurio api world")),
-//                        // Map.of("to", "01092046939",
-//                        //         "name", "손주완",
-//                        //         "changeWord", Map.of(
-//                        //                 "var1", "ppurio api world"))
-//                )
-//        );
-//        params.put("files", List.of(
-//                createFileTestParams(FILE_PATH)
-//        ));
-//        params.put("refKey", RandomStringUtils.random(32, true, true)); // refKey 생성, 32자 이내로 아무 값이든 상관 없음
-//        return params;
-//
-//
-//    }
+
+
+
     private Map<String, Object> createFileParams(String imagePath) throws IOException {
         File file = new File(imagePath);
         if (!file.exists()) {
@@ -338,6 +300,7 @@ class MessageRequest {
         this.requestUri = requestUri;
         this.authorization = authorization;
     }
+
 
     public String getRequestUri() {
         return requestUri;
