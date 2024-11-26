@@ -46,6 +46,7 @@ public class GIFController {
     @PostMapping("/createGIF")
     public GIFResponse createGIF(@RequestBody GIFDTO gifdto) throws IOException {
         String[] gifUrls = new String[4]; // 결과 배열
+        String[] gifUrl = new String[2]; // 결과 배열
         ExecutorService executorService = Executors.newFixedThreadPool(4);
 
         if (gifdto.getCategory().equals("애니")) {
@@ -62,12 +63,12 @@ public class GIFController {
                 });
             }
         } else if (gifdto.getCategory().equals("팝")) {
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 2; i++) {
                 final int index = i;
                 executorService.submit(() -> {
                     try {
                         popGIFService.generateAnimatedGIF(gifdto, index);
-                        gifUrls[index] = "http://localhost:8080/api/gifs/animated_image" + index + ".gif";
+                        gifUrl[index] = "http://localhost:8080/api/gifs/animated_image" + index + ".gif";
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -104,7 +105,12 @@ public class GIFController {
             // 모든 작업이 완료될 때까지 대기
         }
 
-        return new GIFResponse(gifUrls); // GIFResponse 객체로 반환
+        // 카테고리에 따른 올바른 배열 반환
+        if (gifdto.getCategory().equals("팝")) {
+            return new GIFResponse(gifUrl); // "팝" 카테고리에서는 gifUrl 배열 반환
+        } else {
+            return new GIFResponse(gifUrls); // 그 외 카테고리는 gifUrls 배열 반환
+        }
     }
 
     @GetMapping("/gifs/{gifName:.+}")

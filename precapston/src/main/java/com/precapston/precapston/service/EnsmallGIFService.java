@@ -35,25 +35,6 @@ public class EnsmallGIFService {
         String concept = gifdto.getConcept();
         String group = gifdto.getGroup();
 
-//        String prompt = "당신은 30년경력의 유능한 그래픽 디자이너입니다.\n" +
-//                "\n" +
-//                "당신은 의뢰인들의 이미지 만족도를 높이기 위해 끊임없이 노력합니다.\n" +
-//                "\n" +
-//                "다음 문자내용과 반드시 관련된 이미지를 만들어 주세요.\n" +
-//                "\n" +
-//                "관련이 없는 이미지 생성은 절대 안됩니다.\n" +
-//                "\n" +
-//                "======문자내용 ======" +
-//                message +
-//                "==================\n" +
-//                "\n" +
-//                "또한 반드시 이 이미지를 만들 때 " + concept + "컨셉으로 만들어 주세요.\n" +
-//                "\n" +
-//                //"아래는 "+ concept +"컨셉에 대한 자세한 설명입니다. 반드시 이 설명을 참고하여(설명대로) 이미지를 생성해주세요.\n"
-//                //+ categoryRepository.getCategoryContent(concept)
-//                //+"\n"
-//                "또한, 이미지에 글자는 절대로, 절대로 안됩니다. 반드시 이미지를 생성하기 전 영어, 한글, 중국어 등 하나의 글자라도 절대 이미지에 포함시키면 안됩니다."+
-//                "또한, 아래의 이미지를 참고하여 비슷한 이미지를 생성해주세요.\n";
         String prompt =
                 "당신은 30년경력의 유능한 그래픽 디자이너입니다.\n" +
                         "당신은 의뢰인들의 이미지 만족도를 높이기 위해 끊임없이 노력합니다.\n" +
@@ -134,20 +115,6 @@ public class EnsmallGIFService {
         }
     }
 
-    //    private List<BufferedImage> createEnlargingFrames(BufferedImage image, int initialWidth, int initialHeight, int frameCount, int step) {
-//        List<BufferedImage> frames = new ArrayList<>();
-//        int width = initialWidth;
-//        int height = initialHeight;
-//
-//        for (int i = 0; i < frameCount; i++) {
-//            BufferedImage resizedImage = resize(image, width, height);
-//            frames.add(resizedImage);
-//            width += step;
-//            height += step;
-//        }
-//
-//        return frames;
-//    }
     private List<BufferedImage> createEnlargingFrames(BufferedImage image, int initialWidth, int initialHeight, int frameCount, int step) {
         List<BufferedImage> frames = new ArrayList<>();
 
