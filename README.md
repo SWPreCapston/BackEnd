@@ -56,7 +56,7 @@ precapston/
 ```
 precapston → src → main → resources → 다음 위치에 application-APIKey.properties 파일 생성
 
-파일 아래의 내용
+파일 내용
 
 ```java 파일
 #open-ai key
