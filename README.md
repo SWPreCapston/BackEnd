@@ -32,6 +32,44 @@
  
 <br/>
 
+
+## ⭐GitHub Repository에 반영되지 않은 환경설정 파일
+
+<img width="248" alt="image (2)" src="https://github.com/user-attachments/assets/ceeafef0-ac2f-42bf-bc15-326c0be4cc49">
+
+```구조
+precapston/
+├── .gradle/
+├── .idea/
+├── build/
+├── gradle/
+├── out/
+├── src/
+│   ├── main/
+│   │   ├── generated/
+│   │   ├── java/
+│   │   ├── resources/
+│   │   │   ├── images/
+│   │   │   ├── templates/
+│   │   │   ├── application.properties
+│   │   │   └── application-APIKey.properties
+```
+precapston → src → main → resources → 다음 위치에 application-APIKey.properties 파일 생성
+
+파일 아래의 내용
+
+```java 파일
+#open-ai key
+
+openai=${openAI Key}
+
+#ppurio key
+
+ppurio=${ppurioAPI Key}
+```
+
+<br/>
+
 ## 👉🏻 MYSQL 실행 방법
 <details>
 <summary>MySQL 데이터 넣는 법</summary>
