@@ -25,8 +25,9 @@
 8. app 디렉토리로 이동: cd app
 9. mySQL 설정(아래 참조)
 10. app 디렉토리에서 백 그라운드로 서버실행: java -jar precapston-0.0.1-SNAPSHOT.jar &
-11. 프로그램 종료하려면 프로세스 번호 찾기: ps
-12. java 실행중인 프로세스 종료: kill -9 (ps로 찾은 java프로세스 번호)
+11. 프론트 실행(실행 방법은 FrontEnd의 README.md에 있음)
+12. 프로그램 종료하려면 프로세스 번호 찾기: ps
+13. java 실행중인 프로세스 종료: kill -9 (ps로 찾은 java프로세스 번호)
  
 <br/>
 
