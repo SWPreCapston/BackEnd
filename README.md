@@ -1,4 +1,4 @@
-# :envelope: 뿌려뿌려 - Front
+# :envelope: 뿌려뿌려 - Back
 팀 블루프린트의 본 웹 서비스 "뿌려뿌려"는 뿌리오 기업과 연계하여 생성형 AI를 활용한 포토문자 서비스 어플리케이션입니다. 
 
 <br/>
@@ -14,10 +14,10 @@
 저희 ec2 public ip 주소 : 13.239.36.154
 <br/>
 ## 👉🏻 실행 방법
-1. vscode에 FrontEnd 폴더 불러오기
-2. vscode에서 터미널 켜기
-3. 빌드 명령어: npm run build
-4. git bash에서 AWS로 빌드폴더 보내기 : scp -r -i "${본인 ec2 키 경로}" "${ec2에 보낼 파일의 경로}d" [ec2-user@13.239.36.154](mailto:ec2-user@13.239.36.154):/home/ec2-user/app
+1. IntelliJ에 BackEnd 폴더 불러오기
+2. IntelliJ에서 터미널 켜기
+3. 빌드 명령어: ./gradlew clean build -x test
+4. git bash에서 AWS로 jar파일 보내기: scp -i ${본인 ec2 키 경로} ${ec2에 보낼 파일의 경로} ec2-user@13.239.36.154:/home/ec2-user/app
 <br/>(4번 명령어는 내 노트북 말고 다른 곳에서 쓰려면 scp -r -i 다음에 pem key 경로, build 파일 경로, ec2 어디에 보낼건지 경로 적어주면 됩니다.)
 5. EC2 접속하기(putty, git bash) -> ssh -i ${pem 키 경로}ec2-user@${public ip 주소}
 6. 접속하면 처음 위치: /home/ec2-user
