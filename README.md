@@ -23,9 +23,9 @@
 6. EC2 접속하기(putty, git bash) -> ssh -i ${pem 키 경로}ec2-user@${public ip 주소}
 7. 접속하면 처음 위치: /home/ec2-user
 8. app 디렉토리로 이동: cd app
-9.  프론트 실행 전: pm2 kill
-10. 프론트 실행: pm2 serve build/ 3000 --spa
-11. 프론트 종료: pm2 kill
+9. app 디렉토리에서 백 그라운드로 서버실행: java -jar precapston-0.0.1-SNAPSHOT.jar &
+10. 프로그램 종료하려면 프로세스 번호 찾기: ps
+11. java 실행중인 프로세스 종료: kill -9 (ps로 찾은 java프로세스 번호)
  
 <br/>
 
