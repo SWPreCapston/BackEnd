@@ -40,7 +40,7 @@ public class AniGIFService {
             gifWriter.prepareWriteSequence(null);
 
             // 프레임 순서를 반복하여 애니메이션 완성
-            int loopCount = 12;
+            int loopCount = 36;
             for (int i = 0; i < loopCount; i++) {
                 for (BufferedImage frame : List.of(frames.get(0), frames.get(2), frames.get(1), frames.get(3))) {
                     addFrameToGif(gifWriter, frame, 200); // 100ms 딜레이

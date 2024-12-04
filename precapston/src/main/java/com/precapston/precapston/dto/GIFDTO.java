@@ -15,5 +15,4 @@ public class GIFDTO {
     private String who; //피사체
     private String move; //피사체가 하
     private String where;
-    //TO DO : 첨부이미지 변수추가해야됨
 }
