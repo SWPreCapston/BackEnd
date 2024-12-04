@@ -122,6 +122,7 @@ INSERT INTO category (name, content) VALUES ("만화", "만화 이미지는 이�
 </div>
 </details>
 
+<br/>
 
 ## 📝 Composition
 <details>
