@@ -197,6 +197,8 @@ AI 문자 생성 탭
 <summary>마이 페이지</summary>
 <div markdown="1">
 <br/>마이페이지 화면 <br/>
+ <img width="580" alt="마이페이지" src="https://github.com/user-attachments/assets/155ca257-e7bd-4238-ad53-916e43f5f655">
+
 </div>
 </details>
 
