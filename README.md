@@ -13,26 +13,6 @@
 ### ec2 public ip 주소 : 13.239.36.154
 <br/>
 
-## 👉🏻 실행 방법
-1. IntelliJ에 BackEnd 폴더 불러오기
-2. IntelliJ에서 터미널 켜기
-3. precapston디렉토리로 이동: cd precapston
-4. 빌드 명령어: ./gradlew clean build -x test
-5. git bash에서 AWS로 jar파일 보내기: scp -i ${본인 ec2 키 경로} ${ec2에 보낼 파일의 경로} ec2-user@13.239.36.154:/home/ec2-user/app
-<br/>예시: scp -i "D:\24-2\SWFreeCapston_8\private_key_woojj1254577.pem" "D:\24-2\SWFreeCapston_8\Back\precapston\build\libs\precapston-0.0.1-SNAPSHOT.jar" ec2-user@13.239.36.154:/home/ec2-user/app<br/>(4번 명령어는 내 노트북 말고 다른 곳에서 쓰려면 scp -r -i 다음에 pem key 경로, build 파일 경로, ec2 어디에 보낼건지 경로 적어주면 됩니다.)
-6. EC2 접속하기(putty, git bash) -> ssh -i ${pem 키 경로}ec2-user@${public ip 주소}
-7. 접속하면 처음 위치: /home/ec2-user
-8. app 디렉토리로 이동: cd app
-9. mySQL 설정(아래 참조 -> 데이터는 이미 넣어놨기 때문에 생략해도 괜찮습니다.)
-10. app 디렉토리에서 백 그라운드로 서버실행: java -jar precapston-0.0.1-SNAPSHOT.jar &
-11. 프론트 실행하여 서비스 확인(실행 방법은 FrontEnd의 README.md에 있음) 
-### 이 후로는 종료 과정
-12. 프로그램 종료하려면 프로세스 번호 찾기: ps
-13. java 실행중인 프로세스 종료: kill -9 (ps로 찾은 java프로세스 번호)
- 
-<br/>
-
-
 ## ⭐GitHub Repository에 반영되지 않은 환경설정 파일
 
 <img width="248" alt="image (2)" src="https://github.com/user-attachments/assets/ceeafef0-ac2f-42bf-bc15-326c0be4cc49">
@@ -69,56 +49,6 @@ ppurio=${ppurioAPI Key}
 ```
 
 <br/>
-
-## ⭐.gitignore 파일
-<details>
-<summary>.gitignore 파일 내용</summary>
-
- ```
- HELP.md
-.gradle
-build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
-
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-
-### VS Code ###
-.vscode/
-
-######## APIKey INFO
-application-APIKey.properties
-
-```
-
-</details>
 
 ## 👉🏻 MYSQL 실행 방법
 <details>
@@ -173,6 +103,75 @@ INSERT INTO category (name, content) VALUES ("만화", "만화 이미지는 이�
 </details>
 
 <br/>
+
+## 👉🏻 실행 방법
+1. IntelliJ에 BackEnd 폴더 불러오기
+2. IntelliJ에서 터미널 켜기
+3. precapston디렉토리로 이동: cd precapston
+4. 빌드 명령어: ./gradlew clean build -x test
+5. git bash에서 AWS로 jar파일 보내기: scp -i ${본인 ec2 키 경로} ${ec2에 보낼 파일의 경로} ec2-user@13.239.36.154:/home/ec2-user/app
+<br/>예시: scp -i "D:\24-2\SWFreeCapston_8\private_key_woojj1254577.pem" "D:\24-2\SWFreeCapston_8\Back\precapston\build\libs\precapston-0.0.1-SNAPSHOT.jar" ec2-user@13.239.36.154:/home/ec2-user/app<br/>(4번 명령어는 내 노트북 말고 다른 곳에서 쓰려면 scp -r -i 다음에 pem key 경로, build 파일 경로, ec2 어디에 보낼건지 경로 적어주면 됩니다.)
+6. EC2 접속하기(putty, git bash) -> ssh -i ${pem 키 경로}ec2-user@${public ip 주소}
+7. 접속하면 처음 위치: /home/ec2-user
+8. app 디렉토리로 이동: cd app
+9. mySQL 설정(아래 참조 -> 데이터는 이미 넣어놨기 때문에 생략해도 괜찮습니다.)
+10. app 디렉토리에서 백 그라운드로 서버실행: java -jar precapston-0.0.1-SNAPSHOT.jar &
+11. 프론트 실행하여 서비스 확인(실행 방법은 FrontEnd의 README.md에 있음) 
+### 이 후로는 종료 과정
+12. 프로그램 종료하려면 프로세스 번호 찾기: ps
+13. java 실행중인 프로세스 종료: kill -9 (ps로 찾은 java프로세스 번호)
+ 
+<br/>
+
+## ⭐.gitignore 파일
+<details>
+<summary>.gitignore 파일 내용</summary>
+
+ ```
+ HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+######## APIKey INFO
+application-APIKey.properties
+
+```
+
+</details>
 
 ## 📝 Composition
 <details>
