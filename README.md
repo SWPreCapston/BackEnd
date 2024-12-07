@@ -70,6 +70,56 @@ ppurio=${ppurioAPI Key}
 
 <br/>
 
+## ⭐.gitignore 파일
+<details>
+<summary>.gitignore 파일 내용</summary>
+
+ ```
+ HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+######## APIKey INFO
+application-APIKey.properties
+
+```
+
+</details>
+
 ## 👉🏻 MYSQL 실행 방법
 <details>
 <summary>MySQL 데이터 넣는 법</summary>
